@@ -1,0 +1,36 @@
+package org.example.konsumsi;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+public class dashboardPage {
+    WebDriver driver;
+    WebDriverWait wait;
+
+    public dashboardPage(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+    }
+
+//    By pendapatanButton = By.xpath("//button[contains(@id, 'pendapatan') and contains(text(), 'Pendapatan')]");
+
+    By pendapatanButton = By.id("pendapatan-button");
+    By konsumsiButton = By.id("pendapatan-boarding-konsumsi-link");
+
+    public void clickPendapatanButton() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(pendapatanButton));
+        wait.until(ExpectedConditions.elementToBeClickable(pendapatanButton));
+        driver.findElement(pendapatanButton).click();
+    }
+
+    public void waitUntilKonsumsiButtonVisible() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(konsumsiButton));
+    }
+    public void clickKonsumsiButton() {
+        driver.findElement(konsumsiButton).click();
+    }
+}
