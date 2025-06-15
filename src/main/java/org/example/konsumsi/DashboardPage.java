@@ -7,11 +7,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class dashboardPage {
+public class DashboardPage {
     WebDriver driver;
     WebDriverWait wait;
 
-    public dashboardPage(WebDriver driver) {
+    public DashboardPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }

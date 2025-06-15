@@ -1,14 +1,24 @@
-Feature: tambah siswa konsumsi
-
-  Scenario: tambah siswa konsumsi dengan valid query
+Feature: Tambah siswa konsumsi
+  Background:
     Given pengguna berada di halaman login
     When pengguna mengisi email dan password yang benar
     And menekan tombol login
     Then pengguna diarahkan ke halaman dashboard
-    When User klik tombol konsumsi
-    Then User diarahkan ke halaman monitoring konsumsi
-    When User klik tombol tambah siswa
-    Then User diarahkan ke halaman tambah siswa konsumsi
-#    And User menginputkan data konsumsi siswa
-#    And User klik tombol simpan
-#    Then User diarahkan ke halaman monitoring konsumsi dan data konsumsi siswa ditampilkan
+    When pengguna klik tombol konsumsi
+    Then pengguna diarahkan ke halaman monitoring konsumsi
+
+  Scenario: Tambah siswa konsumsi dengan data valid
+    When pengguna klik tombol tambah siswa
+    Then pengguna diarahkan ke halaman tambah siswa konsumsi
+    When pengguna menginputkan data konsumsi siswa
+    And klik tombol simpan siswa
+    Then pengguna diarahkan kembali ke halaman monitoring konsumsi
+    And data konsumsi siswa ditampilkan
+
+  Scenario: Tambah siswa konsumsi dengan data tidak valid
+    When pengguna klik tombol tambah siswa
+    Then pengguna diarahkan ke halaman tambah siswa konsumsi
+    When pengguna menginputkan data konsumsi siswa yang tidak valid
+    And klik tombol simpan siswa
+    Then pengguna tetap berada di halaman tambah siswa konsumsi
+    And pengguna melihat pesan error validasi
