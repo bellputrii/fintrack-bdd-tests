@@ -23,7 +23,7 @@ public class MonitoringPraxisPage {
     private By searchInput = By.id("search-praxis");
     private By tambahKontrakButton = By.id("tambah-kontrak-praxis");
     private By tableRows = By.cssSelector("tbody tr");
-    private By namaSiswaCell = By.cssSelector("td:nth-child(1)");
+    private By namaSiswaCell = By.xpath("//table/tbody/tr/td[1]");
     private By kontrakIcon = By.cssSelector("td svg#kontrak");
     private By bayarIcon = By.cssSelector("td svg#bayar");
 

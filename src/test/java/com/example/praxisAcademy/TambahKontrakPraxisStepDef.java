@@ -97,7 +97,7 @@ public class TambahKontrakPraxisStepDef {
         monitoringPraxisPage = new MonitoringPraxisPage(driver);
         monitoringPraxisPage.waitUntilLoadedPraxis();
         String currentUrl = monitoringPraxisPage.getCurrentUrlPraxis();
-        System.out.println("[Monitoring] Kembali ke halaman monitoring, URL: " + currentUrl);
+        System.out.println("[Monitoring Praxis] Kembali ke halaman monitoring, URL: " + currentUrl);
         Assertions.assertEquals("https://fe-fintrack.vercel.app/pendapatan/praxis", currentUrl);
     }
 
@@ -105,8 +105,8 @@ public class TambahKontrakPraxisStepDef {
     public void verifikasiDataKontrakDitampilkan() {
         monitoringPraxisPage = new MonitoringPraxisPage(driver);
         monitoringPraxisPage.waitUntilLoadedPraxis();
-        boolean ditemukan = monitoringPraxisPage.isSiswaDisplayed("Eka");
-        System.out.println("[Monitoring] Apakah nama siswa 'Eka' muncul di tabel? " + ditemukan);
+        boolean ditemukan = monitoringPraxisPage.isSiswaDisplayed("Eka Putra");
+        System.out.println("[Monitoring Praxis] Apakah nama siswa 'Eka Putra' muncul di tabel? " + ditemukan);
         Assertions.assertTrue(ditemukan);
     }
 
