@@ -1,4 +1,4 @@
-package org.example.konsumsi;
+package org.example.boarding;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,10 +16,9 @@ public class DashboardPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
-//    By pendapatanButton = By.xpath("//button[contains(@id, 'pendapatan') and contains(text(), 'Pendapatan')]");
-
+    // Ganti ID sesuai ID tombol pada bagian boarding
     By pendapatanButton = By.id("pendapatan-button");
-    By konsumsiButton = By.id("pendapatan-boarding-konsumsi-link");
+    By boardingButton = By.id("pendapatan-boarding-konsumsi-link");
 
     public void clickPendapatanButton() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(pendapatanButton));
@@ -27,10 +26,11 @@ public class DashboardPage {
         driver.findElement(pendapatanButton).click();
     }
 
-    public void waitUntilKonsumsiButtonVisible() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(konsumsiButton));
+    public void waitUntilBoardingButtonVisible() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(boardingButton));
     }
-    public void clickKonsumsiButton() {
-        driver.findElement(konsumsiButton).click();
+
+    public void clickBoardingButton() {
+        driver.findElement(boardingButton).click();
     }
 }

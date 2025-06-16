@@ -16,45 +16,6 @@ import java.time.Duration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
-//    WebDriver driver;
-//    WebDriverWait wait;
-//
-//    @Given("pengguna berada di halaman login")
-//    public void halamanLogin() {
-//        driver = new ChromeDriver();
-//        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        driver.get("http://127.0.0.1:3000"); // URL React login page kamu
-//    }
-//
-//    @When("pengguna mengisi email dan password yang benar")
-//    public void isiForm() {
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("email")));
-//        driver.findElement(By.id("email")).clear();
-//        driver.findElement(By.id("email")).sendKeys("bendahara@example.com");
-//
-//        driver.findElement(By.id("password")).clear();
-//        driver.findElement(By.id("password")).sendKeys("password123");
-//    }
-//
-//    @And("menekan tombol login")
-//    public void klikLogin() {
-//        driver.findElement(By.id("loginButton")).click();
-//    }
-//
-//    @Then("pengguna diarahkan ke halaman beranda")
-//    public void cekHalamanDashboard() {
-//        // Tunggu sampai URL berubah ke /dashboard (maks 10 detik)
-//        wait.until(ExpectedConditions.urlContains("/dashboard"));
-//        String currentUrl = driver.getCurrentUrl();
-//
-//        // Pastikan URL mengandung /dashboard
-//        if (!currentUrl.contains("/dashboard")) {
-//            throw new AssertionError("User tidak diarahkan ke halaman dashboard, URL saat ini: " + currentUrl);
-//        }
-//
-//        driver.quit();
-//    }
 public class Login {
     private final TestContext context;
     public Login(TestContext context) {
@@ -126,7 +87,7 @@ public class Login {
         WebDriver driver = context.getDriver();
         String errorMessage = driver.findElement(By.id("error-message")).getText();
         assertEquals(pesan, errorMessage);
-        driver.quit();
+//        driver.quit();
     }
 
 

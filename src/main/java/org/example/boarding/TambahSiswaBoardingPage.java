@@ -1,4 +1,4 @@
-package org.example.konsumsi;
+package org.example.boarding;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,11 +8,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class TambahSiswaKonsumsiPage {
+public class TambahSiswaBoardingPage {
     WebDriver driver;
     WebDriverWait wait;
 
-    public TambahSiswaKonsumsiPage(WebDriver driver) {
+    public TambahSiswaBoardingPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
@@ -26,12 +26,12 @@ public class TambahSiswaKonsumsiPage {
     }
 
     By cariSiswaField = By.cssSelector("input[placeholder='Masukkan NISN atau Nama Siswa']");
-    By tanggalMulaiField = By.cssSelector("input[type='date']:nth-of-type(1)");
-    By tanggalSelesaiField = By.xpath("/html/body/div/div/main/div/div/div/form/div[4]/input");
+    By tanggalMulaiField = By.xpath("(//input[@type='date'])[1]");
+    By tanggalSelesaiField = By.xpath("(//input[@type='date'])[2]");
     By tagihanField = By.cssSelector("input[placeholder='Nominal Tagihan']");
-    By jenisTagihanSelect = By.cssSelector("select"); // karena hanya 1 select ditemukan
+    By jenisTagihanSelect = By.xpath("//select[option[text()='Boarding']]");
     By catatanField = By.cssSelector("textarea[placeholder='Tuliskan catatan tambahan']");
-    By simpanSiswaButton = By.xpath("/html/body/div/div/main/div/div/div/form/div[8]/button");
+    By simpanSiswaButton = By.xpath("//button[contains(text(), 'Simpan Siswa')]");
 
     By pesanError = By.xpath("/html/body/div/div/main/div/div/div/div/p");
 

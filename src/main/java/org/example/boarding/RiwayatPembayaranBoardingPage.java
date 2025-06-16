@@ -1,4 +1,4 @@
-package org.example.konsumsi;
+package org.example.boarding;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,24 +7,24 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class RiwayatPembayaranKonsumsiPage {
+public class RiwayatPembayaranBoardingPage {
     WebDriver driver;
     WebDriverWait wait;
 
-    public RiwayatPembayaranKonsumsiPage(WebDriver driver) {
+    public RiwayatPembayaranBoardingPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
-    By tanggalPembayaranText = By.xpath("/html/body/div/div/main/div/div[2]/table/tbody/tr/td[1]");
-    By nominalPembayaranText = By.xpath("/html/body/div/div/main/div/div[2]/table/tbody/tr/td[2]");
+    By tanggalPembayaranText = By.id("tanggal_pembayaran");
+    By nominalPembayaranText = By.id("boarding");
 
     public void waitUntilLoaded() {
         wait.until(ExpectedConditions.urlContains("https://fe-fintrack.vercel.app/pendapatan/boarding-konsumsi/detail-bk"));
         wait.until(ExpectedConditions.visibilityOfElementLocated(tanggalPembayaranText)); // optionally also wait for a unique element
     }
 
-    public boolean isOnPembayaranKonsumsiPage() {
+    public boolean isOnPembayaranBoardingPage() {
         return driver.getCurrentUrl().contains("https://fe-fintrack.vercel.app/pendapatan/boarding-konsumsi/detail-bk");
     }
 
