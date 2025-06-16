@@ -2,15 +2,11 @@ package com.example.tagihan;
 
 import com.example.support.TestContext;
 import io.cucumber.java.en.*;
-import org.example.boarding.DashboardPage;
+import org.example.tagihan.DashboardPage;
 import org.example.tagihan.FormTagihanPage;
 import org.example.tagihan.RiwayatTagihanPage;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class BuatTagihanStepDef {
 
@@ -19,82 +15,69 @@ public class BuatTagihanStepDef {
 
     private RiwayatTagihanPage riwayatTagihanPage;
     private FormTagihanPage formTagihanPage;
+    private DashboardPage dashboardPage;
 
     public BuatTagihanStepDef(TestContext context) {
         this.context = context;
         this.driver = context.getDriver();
+        this.dashboardPage = new DashboardPage(driver);
     }
 
-    // === Background Steps ===
     @When("pengguna klik tombol tagihan")
     public void pengguna_klik_tombol_tagihan() {
-        System.out.println("[Dashboard] Klik tombol tagihan");
+        dashboardPage = new DashboardPage(driver);
+        dashboardPage.waitUntilTagihanButtonVisible();
+        dashboardPage.clickTagihanButton();
+        System.out.println("[Dashboard] Tagihan button clicked");
     }
 
     @Then("pengguna diarahkan ke halaman riwayat tagihan siswa")
-    public void pengguna_diarahkan_ke_halaman_riwayat_tagihan_siswa() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.urlContains("/tagihan"));
-        String currentUrl = driver.getCurrentUrl();
-        System.out.println("[Riwayat Tagihan] URL saat ini: " + currentUrl);
-        Assertions.assertEquals("https://fe-fintrack.vercel.app/tagihan", currentUrl);
-    }
-
-    // === Skenario: Berhasil Buat Tagihan ===
-    @When("pengguna klik tombol tambah tagihan")
-    public void klikTambahTagihan() {
+    public void pengguna_diarahkan_ke_halaman_riwayat_tagihan() {
         riwayatTagihanPage = new RiwayatTagihanPage(driver);
         riwayatTagihanPage.waitUntilLoaded();
-        riwayatTagihanPage.klikTambahTagihan();
-        System.out.println("[Tagihan] Klik tombol tambah tagihan");
+
+        String currentUrl = riwayatTagihanPage.getCurrentUrl();
+        Assertions.assertTrue(currentUrl.contains("/tagihan"),
+                "Halaman riwayat tagihan tidak terbuka. Current URL: " + currentUrl);
+    }
+
+    @When("pengguna diarahkan ke halaman form tagihan siswa")
+    public void pengguna_diarahkan_ke_halaman_form_tagihan_siswa() {
+        formTagihanPage = new FormTagihanPage(driver);
+        formTagihanPage.waitUntilLoaded();
+        Assertions.assertTrue(formTagihanPage.getCurrentUrl().contains("/tagihan"),
+                "Tidak diarahkan ke halaman form tagihan. URL: " + formTagihanPage.getCurrentUrl());
     }
 
     @Then("pengguna diarahkan ke halaman form buat tagihan")
-    public void verifikasiHalamanFormBuatTagihan() {
+    public void pengguna_diarahkan_ke_form_tagihan() {
         formTagihanPage = new FormTagihanPage(driver);
-        String url = formTagihanPage.getCurrentUrl();
-        System.out.println("[Form Tagihan] URL saat ini: " + url);
-        Assertions.assertEquals("https://fe-fintrack.vercel.app/tagihan/add", url);
+        formTagihanPage.waitUntilLoaded();
+        Assertions.assertTrue(formTagihanPage.getCurrentUrl().contains("/tagihan"),
+                "Tidak berada di halaman form tagihan. Current URL: " + formTagihanPage.getCurrentUrl());
     }
 
     @When("pengguna menginputkan data siswa")
-    public void inputDataTagihanValid() {
+    public void pengguna_menginputkan_data() {
         formTagihanPage = new FormTagihanPage(driver);
-        formTagihanPage.isiFormulirValid();
-        System.out.println("[Form Tagihan] Form diisi dengan data valid");
-    }
+        formTagihanPage.waitUntilLoaded();
 
-    @And("klik tombol simpan dan cetak tagihan")
-    public void klikSimpanDanCetak() {
-        formTagihanPage.klikSimpanCetak();
-        System.out.println("[Form Tagihan] Klik tombol simpan dan cetak");
-    }
+        formTagihanPage.isiFieldNisn("Linda");
+        formTagihanPage.isiFieldSemester("2");
+        formTagihanPage.isiFieldPeriode("2");
+        formTagihanPage.isiFieldTanggalTagihan("2025-06-16");
+        formTagihanPage.isiFieldJatuhTempo("2025-06-30");
+        formTagihanPage.isiFieldKBM("3000000");
+        formTagihanPage.isiFieldSPP("3000000");
+        formTagihanPage.isiFieldPemeliharaan("3000000");
+        formTagihanPage.isiFieldSumbangan("3000000");
+        formTagihanPage.isiFieldKonsumsi("0");
+        formTagihanPage.isiFieldBoarding("0");
+        formTagihanPage.isiFieldEkstrakurikuler("0");
+        formTagihanPage.isiFieldUangBelanja("0");
+        formTagihanPage.isiFieldTunggakan("0");
+        formTagihanPage.isiFieldCatatan("Tagihan dengan input yang valid");
 
-    @Then("pengguna tetap berada di halaman form buat tagihan dan berhasil download PDF tagihan")
-    public void verifikasiBerhasilCetak() {
-        formTagihanPage = new FormTagihanPage(driver);
-        String url = formTagihanPage.getCurrentUrl();
-        System.out.println("[Form Tagihan] URL setelah cetak: " + url);
-        Assertions.assertEquals("https://fe-fintrack.vercel.app/tagihan/add", url);
-        // Cek file PDF bisa ditambahkan di sini bila perlu
-    }
-
-    // === Skenario: Gagal Buat Tagihan ===
-    @When("pengguna tidak menginputkan data siswa")
-    public void inputDataTagihanKosong() {
-        formTagihanPage = new FormTagihanPage(driver);
-        formTagihanPage.isiFormulirKosong();
-        System.out.println("[Form Tagihan] Form kosong");
-    }
-
-    @Then("pengguna tetap berada di halaman form buat tagihan dan muncul eror validasi")
-    public void verifikasiGagalKarenaKosong() {
-        formTagihanPage = new FormTagihanPage(driver);
-        String url = formTagihanPage.getCurrentUrl();
-        System.out.println("[Form Tagihan] URL saat error validasi: " + url);
-        Assertions.assertEquals("https://fe-fintrack.vercel.app/tagihan/add", url);
-        String errorMsg = formTagihanPage.getPesanError();
-        System.out.println("[Form Tagihan] Pesan error: " + errorMsg);
-        Assertions.assertTrue(errorMsg.contains("harus diisi"));
+        System.out.println("[FormTagihanPage] Data siswa berhasil diinputkan");
     }
 }

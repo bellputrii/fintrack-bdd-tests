@@ -10,8 +10,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class RiwayatTagihanPage {
-    WebDriver driver;
-    WebDriverWait wait;
+    private WebDriver driver;
+    private WebDriverWait wait;
 
     public RiwayatTagihanPage(WebDriver driver) {
         this.driver = driver;
@@ -23,7 +23,13 @@ public class RiwayatTagihanPage {
     private WebElement tambahTagihanButton;
 
     public void klikTambahTagihan() {
-        tambahTagihanButton.click();
+        waitUntilLoaded(); // memastikan tombol muncul sebelum klik
+        if (tambahTagihanButton.isDisplayed() && tambahTagihanButton.isEnabled()) {
+            System.out.println("[RiwayatTagihanPage] Klik tombol Tambah Tagihan");
+            tambahTagihanButton.click();
+        } else {
+            throw new RuntimeException("Tombol 'Tambah Tagihan' tidak dapat diklik atau tidak terlihat.");
+        }
     }
 
     public String getCurrentUrl() {
