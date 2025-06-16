@@ -77,30 +77,6 @@ public class TambahKontrakSiswaPraxisPage {
         driver.findElement(catatanField).sendKeys(catatan);
     }
 
-//    public void unggahFileKontrak(String filePath) {
-//        WebElement uploadInput = driver.findElement(fileKontrakInput);
-//        uploadInput.sendKeys(filePath);
-//    }
-
-//    public void unggahFileKontrak() {
-//        WebElement uploadInput = driver.findElement(fileKontrakInput);
-//
-//        // Dapatkan path absolut file
-//        String filePath = System.getProperty("user.dir")
-//                + "/src/main/java/org/example/assets/tagihan_Ahmad Budi (3).pdf";
-//
-//        // Handle spasi dalam path
-//        filePath = filePath.replace(" ", "%20");
-//
-//        System.out.println("Mengunggah file dari: " + filePath);
-//        uploadInput.sendKeys(filePath);
-//
-//        // Verifikasi file terupload
-//        if (uploadInput.getAttribute("value").isEmpty()) {
-//            throw new RuntimeException("Gagal mengunggah file: " + filePath);
-//        }
-//    }
-
     public void unggahFileKontrakHeadless() {
         String filePath = Paths.get(
                 System.getProperty("user.dir"),

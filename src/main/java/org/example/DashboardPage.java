@@ -29,10 +29,31 @@ public class DashboardPage {
         wait.until(ExpectedConditions.urlContains("https://fe-fintrack.vercel.app/dashboard"));
     }
 
+    By boardingButton = By.id("pendapatan-boarding-konsumsi-link");
+
+
+    By tagihanButton = By.id("tagihan-link"); // Sesuaikan ID dengan HTML kamu
+
+    public void waitUntilTagihanButtonVisible() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(tagihanButton));
+    }
+
+    public void clickTagihanButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(tagihanButton)).click();
+    }
+
     public void clickPendapatanButton() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(pendapatanButton));
         wait.until(ExpectedConditions.elementToBeClickable(pendapatanButton));
         driver.findElement(pendapatanButton).click();
+    }
+
+    public void waitUntilBoardingButtonVisible() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(boardingButton));
+    }
+
+    public void clickBoardingButton() {
+        driver.findElement(boardingButton).click();
     }
 
     public void waitUntilKonsumsiButtonVisible() {
