@@ -22,15 +22,5 @@ public class Hooks {
     @After
     public void tearDown() {
         System.out.println("[HOOK] Cleanup sesudah scenario");
-
-        // TODO: reset data test agar tidak muncul error "siswa sudah ikut boarding"
-        try {
-            context.clearBoardingForTestSiswa("Linda"); // kamu implementasikan ini
-        } catch (Exception e) {
-            System.err.println("[HOOK] Gagal clear data test: " + e.getMessage());
-        }
-
-        // Jika ingin close browser per scenario
-        // context.quitDriver();
     }
 }
