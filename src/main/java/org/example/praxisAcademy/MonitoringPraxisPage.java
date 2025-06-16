@@ -16,7 +16,7 @@ public class MonitoringPraxisPage {
 
     public MonitoringPraxisPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     // ======= Locator Elements =======
@@ -24,7 +24,7 @@ public class MonitoringPraxisPage {
     private By searchInput = By.id("search-praxis");
     private By tambahKontrakButton = By.id("tambah-kontrak-praxis");
     private By tableRows = By.cssSelector("tbody tr");
-    private By namaSiswaCell = By.xpath("//table/tbody/tr/td[]");
+    private By namaSiswaCell = By.xpath("//table/tbody/tr/td[1]");
     private By kontrakIcon = By.cssSelector("td svg#kontrak");
     private By bayarIcon = By.cssSelector("td svg#bayar");
     By successMessage = By.xpath("/html/body/div/div/main/div/div[2]/p");
@@ -32,6 +32,20 @@ public class MonitoringPraxisPage {
 //    By successMessage = By.xpath("/html/body/div/div/main/div/div[3]");
 
     // ======= Interactions =======
+
+    // MonitoringPraxisPage.java
+    private By namaSiswaCells = By.xpath("//table/tbody/tr/td[1]"); // Langsung ambil semua kolom 1
+
+    public boolean isSiswaDisplayed(String namaSiswa) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(namaSiswaCells));
+        List<WebElement> namaCells = driver.findElements(namaSiswaCells);
+        for (WebElement cell : namaCells) {
+            if (cell.getText().trim().equalsIgnoreCase(namaSiswa)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public String getSuccessMessage() {
         isOnMonitoringPraxisPage();
@@ -167,7 +181,7 @@ public class MonitoringPraxisPage {
     }
 
     public void waitUntilLoadedPraxis() {
-        wait.until(ExpectedConditions.urlToBe("https://fe-fintrack.vercel.app/pendapatan/praxis"));
+        wait.until(ExpectedConditions.urlContains("https://fe-fintrack.vercel.app/pendapatan/praxis"));
         wait.until(ExpectedConditions.visibilityOfElementLocated(tambahKontrakButton)); // optionally also wait for a unique element
     }
 
@@ -213,33 +227,16 @@ public class MonitoringPraxisPage {
         }
     }
 
-    public boolean isSiswaDisplayed(String namaSiswa) {
-        List<WebElement> rows = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(tableRows));
-        return rows.stream().anyMatch(row ->
-                row.findElement(namaSiswaCell).getText().equalsIgnoreCase(namaSiswa)
-        );
-    }
-
-    public void printAllVisibleTextElements() {
-        List<WebElement> elements = driver.findElements(By.xpath("//*[text()]"));
-
-        System.out.println("=== DAFTAR ELEMEN TEKS YANG DITEMUKAN DI HALAMAN ===");
-        for (WebElement element : elements) {
-            String tag = element.getTagName();
-            String text = element.getText().trim();
-            String id = element.getAttribute("id");
-            String className = element.getAttribute("class");
-
-            if (!text.isEmpty()) {
-                System.out.println("--------------------------------------------------");
-                System.out.println("Tag      : " + tag);
-                System.out.println("Text     : " + text);
-                System.out.println("ID       : " + id);
-                System.out.println("Class    : " + className);
-            }
-        }
-        System.out.println("=== SELESAI CETAK ELEMEN ===");
-    }
+//    public boolean isSiswaDisplayed(String namaSiswa) {
+//        List<WebElement> rows = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(tableRows));
+//        for (WebElement row : rows) {
+//            WebElement namaCell = row.findElement(By.xpath("./td[1]"));
+//            if (namaCell.getText().trim().equalsIgnoreCase(namaSiswa)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
 
     //

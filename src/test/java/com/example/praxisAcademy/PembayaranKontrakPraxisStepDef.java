@@ -108,7 +108,7 @@ public class PembayaranKontrakPraxisStepDef {
 //        Assertions.assertEquals("Lunas", monitoringPraxis.getPaymentStatus("Nur", "SPP"));
 //        Assertions.assertEquals("Lunas", monitoringPraxis.getPaymentStatus("Nur", "Pemeliharaan"));
 //        Assertions.assertEquals("Lunas", monitoringPraxis.getPaymentStatus("Nur", "Sumbangan"));
-        System.out.println("[Monitoring] Data pembayaran siswa Taufik ditampilkan dengan status Lunas");
+        System.out.println("[Monitoring] Data pembayaran siswa 'Taufik' ditampilkan");
     }
 
     @Then("pengguna tetap berada di halaman pembayaran siswa praxis academy")

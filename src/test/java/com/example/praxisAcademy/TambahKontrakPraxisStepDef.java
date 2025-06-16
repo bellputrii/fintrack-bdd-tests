@@ -72,8 +72,8 @@ public class TambahKontrakPraxisStepDef {
     @When("pengguna menginputkan data kontrak siswa praxis academy yang valid")
     public void isiFormulirDataPraxisAcademyValid() {
         tambahKontrakSiswaPraxisPage = new TambahKontrakSiswaPraxisPage(driver);
-        System.out.println("[Tambah Kontrak] Mengisi data valid untuk siswa: Citra");
-        tambahKontrakSiswaPraxisPage.setCariSiswaField("Citra");
+        System.out.println("[Tambah Kontrak] Mengisi data valid untuk siswa: Taufik");
+        tambahKontrakSiswaPraxisPage.setCariSiswaField("Taufik");
         tambahKontrakSiswaPraxisPage.setSiswaPraxisFromDropdown();
         tambahKontrakSiswaPraxisPage.setUangKBM("2000000");
         tambahKontrakSiswaPraxisPage.setUangSPP("2500000");
@@ -86,7 +86,7 @@ public class TambahKontrakPraxisStepDef {
     @When("pengguna menginputkan data kontrak siswa praxis academy tanpa file")
     public void isiFormulirDataPraxisAcademyTidakValid() {
         tambahKontrakSiswaPraxisPage = new TambahKontrakSiswaPraxisPage(driver);
-        System.out.println("[Tambah Kontrak] Mengisi data tanpa file untuk siswa: Iqbal");
+        System.out.println("[Tambah Kontrak] Mengisi data tanpa file untuk siswa: Taufik");
         tambahKontrakSiswaPraxisPage.setCariSiswaField("Taufik");
         tambahKontrakSiswaPraxisPage.setSiswaPraxisFromDropdown();
         tambahKontrakSiswaPraxisPage.setUangKBM("2000000");
@@ -109,8 +109,8 @@ public class TambahKontrakPraxisStepDef {
     public void verifikasiDataKontrakDitampilkan() {
         monitoringPraxis = new MonitoringPraxisPage(driver);
         monitoringPraxis.waitUntilLoadedPraxis();
-        boolean ditemukan = monitoringPraxis.isSiswaDisplayed("Iqbal");
-        System.out.println("[Monitoring Praxis] Apakah nama siswa 'Iqbal' muncul di tabel? " + ditemukan);
+        boolean ditemukan = monitoringPraxis.isSiswaDisplayed("Taufik");
+        System.out.println("[Monitoring Praxis] Apakah nama siswa 'Taufik' muncul di tabel? " + ditemukan);
         Assertions.assertTrue(ditemukan);
     }
 
@@ -136,7 +136,6 @@ public class TambahKontrakPraxisStepDef {
     public void penggunaMelihatPesanSuksesKontrakSiswaPraxis() {
         monitoringPraxis = new MonitoringPraxisPage(driver);
         monitoringPraxis.waitUntilLoaded();
-        monitoringPraxis.printAllVisibleTextElements();
         Assertions.assertEquals("Data siswa berhasil ditambahkan!", monitoringPraxis.getSuccessMessage());
         System.out.println("[Monitoring] Pesan sukses data siswa ditampilkan");
     }
