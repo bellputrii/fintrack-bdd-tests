@@ -1,13 +1,12 @@
 package com.example.ekstra;
 
 import com.example.support.TestContext;
-import io.cucumber.java.Before;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.example.DashboardPage;
 import org.example.ekstra.monitoringEkstraPage;
 import org.example.ekstra.tambahSiswaEkstraPage;
-import org.example.praxisAcademy.TambahKontrakSiswaPraxisPage;
+
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 
@@ -58,7 +57,7 @@ public class TambahSiswaEkstra {
         Assertions.assertEquals("https://fe-fintrack.vercel.app/ekstra/tambah-siswa", currentUrl);
     }
     @When("User menginputkan data ekstra siswa")
-    public void isiFormulirDataPraxisAcademyValid() {
+    public void isiFormulirData() {
         tambahSiswaEkstra = new tambahSiswaEkstraPage(driver); // gunakan page object yang benar
         System.out.println("[Tambah Kontrak] Mengisi data valid untuk siswa: Lintang");
         tambahSiswaEkstra.isiNama("Ali");
