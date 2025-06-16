@@ -1,11 +1,15 @@
 package org.example.praxisAcademy;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Paths;
 import java.time.Duration;
 
 public class TambahKontrakSiswaPraxisPage {
@@ -19,7 +23,7 @@ public class TambahKontrakSiswaPraxisPage {
 
     // === Locator ===
     By cariSiswaField = By.id("cari_siswa");
-    By opsiDropdown = By.cssSelector(".cursor-pointer");
+    By opsiDropdown = By.xpath("/html/body/div/div/main/div/div/div/form/div[1]/div/div");
 
     By uangKBMField = By.id("uang_kbm");
     By uangSPPField = By.id("uang_spp");
@@ -31,6 +35,8 @@ public class TambahKontrakSiswaPraxisPage {
 
     By simpanKontrakButton = By.xpath("//button[@type='submit' and contains(., 'Simpan Kontrak')]");
     By toastSuccess = By.className("toast-success");
+
+    By pesanError = By.xpath("/html/body/div/div/main/div/div/div/div/p");
 
     // === Actions ===
     public String getCurrentUrl() {
@@ -46,8 +52,8 @@ public class TambahKontrakSiswaPraxisPage {
         driver.findElement(cariSiswaField).sendKeys(nama);
     }
 
-    public void setSiswaFromDropdown() {
-        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(opsiDropdown)).get(0).click();
+    public void setSiswaPraxisFromDropdown() {
+        wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(opsiDropdown)).getFirst().click();
     }
 
     public void setUangKBM(String nominal) {
@@ -71,17 +77,66 @@ public class TambahKontrakSiswaPraxisPage {
         driver.findElement(catatanField).sendKeys(catatan);
     }
 
-    public void unggahFileKontrak(String filePath) {
-        WebElement uploadInput = driver.findElement(fileKontrakInput);
-        uploadInput.sendKeys(filePath);
+//    public void unggahFileKontrak(String filePath) {
+//        WebElement uploadInput = driver.findElement(fileKontrakInput);
+//        uploadInput.sendKeys(filePath);
+//    }
+
+//    public void unggahFileKontrak() {
+//        WebElement uploadInput = driver.findElement(fileKontrakInput);
+//
+//        // Dapatkan path absolut file
+//        String filePath = System.getProperty("user.dir")
+//                + "/src/main/java/org/example/assets/tagihan_Ahmad Budi (3).pdf";
+//
+//        // Handle spasi dalam path
+//        filePath = filePath.replace(" ", "%20");
+//
+//        System.out.println("Mengunggah file dari: " + filePath);
+//        uploadInput.sendKeys(filePath);
+//
+//        // Verifikasi file terupload
+//        if (uploadInput.getAttribute("value").isEmpty()) {
+//            throw new RuntimeException("Gagal mengunggah file: " + filePath);
+//        }
+//    }
+
+    public void unggahFileKontrakHeadless() {
+        String filePath = Paths.get(
+                System.getProperty("user.dir"),
+                "src", "main", "java", "org", "example", "assets",
+                "tagihan_Ahmad Budi (3).pdf"
+        ).toAbsolutePath().toString();
+
+        WebElement fileInput = driver.findElement(fileKontrakInput);
+
+        // Hilangkan atribut 'hidden' jika ada
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].removeAttribute('hidden');", fileInput
+        );
+
+        // Beri waktu untuk render
+        try { Thread.sleep(500); } catch (InterruptedException ie) {}
+
+        fileInput.sendKeys(filePath);
+
+//        // Verifikasi kuat
+//        Awaitility.await()
+//                .atMost(5, TimeUnit.SECONDS)
+//                .until(() -> !fileInput.getAttribute("value").isEmpty());
     }
 
-    public void clickSimpanKontrak() {
+    public void clickSimpanKontrakPraxis() {
         driver.findElement(simpanKontrakButton).click();
     }
 
     public String getNotifikasiBerhasil() {
         WebElement toast = wait.until(ExpectedConditions.visibilityOfElementLocated(toastSuccess));
         return toast.getText().trim();
+    }
+
+    public String getPesanErrorPraxis() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(pesanError));
+        return driver.findElement(pesanError).getText();
     }
 }

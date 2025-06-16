@@ -3,7 +3,7 @@ package com.example.konsumsi;
 import com.example.support.TestContext;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.example.konsumsi.DashboardPage;
+import org.example.DashboardPage;
 import org.example.konsumsi.MonitoringKonsumsiPage;
 import org.example.konsumsi.TambahSiswaKonsumsiPage;
 import org.junit.jupiter.api.Assertions;

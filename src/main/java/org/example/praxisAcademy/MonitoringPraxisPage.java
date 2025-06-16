@@ -29,19 +29,63 @@ public class MonitoringPraxisPage {
 
     // ======= Interactions =======
 
+    public void clickPembayaranButton(String namaSiswaTarget) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(tableRows));
+        List<WebElement> rows = driver.findElements(tableRows);
+
+        for (WebElement row : rows) {
+            WebElement namaCell = row.findElement(namaSiswaCell);
+            if (namaCell.getText().toLowerCase().contains(namaSiswaTarget.toLowerCase())) {
+                WebElement bayarButton = row.findElement(bayarIcon);
+                bayarButton.click();
+                System.out.println("[ACTION] Klik tombol bayar untuk siswa: " + namaSiswaTarget);
+                return;
+            }
+        }
+
+        throw new RuntimeException("Siswa dengan nama '" + namaSiswaTarget + "' tidak ditemukan di tabel.");
+    }
+
+    public void clickKontrakSiswaButton(String namaSiswaTarget) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(tableRows));
+        List<WebElement> rows = driver.findElements(tableRows);
+
+        for (WebElement row : rows) {
+            WebElement namaCell = row.findElement(namaSiswaCell);
+            if (namaCell.getText().toLowerCase().contains(namaSiswaTarget.toLowerCase())) {
+                WebElement riwayatButton = row.findElement(kontrakIcon);
+                riwayatButton.click();
+                System.out.println("[ACTION] Klik tombol riwayat pembayaran untuk siswa: " + namaSiswaTarget);
+                return;
+            }
+        }
+
+        throw new RuntimeException("Siswa dengan nama '" + namaSiswaTarget + "' tidak ditemukan di tabel.");
+    }
+
+    public void waitUntilLoadedPraxis() {
+        wait.until(ExpectedConditions.urlToBe("https://fe-fintrack.vercel.app/pendapatan/praxis"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(tambahKontrakButton)); // optionally also wait for a unique element
+    }
+
+    public String getCurrentUrlPraxis() {
+        return driver.getCurrentUrl();
+    }
+
     public void selectLevel(String level) {
         WebElement select = wait.until(ExpectedConditions.elementToBeClickable(levelSelect));
         select.findElement(By.xpath(".//option[. = '" + level + "']")).click();
+    }
+
+    public void clickAddKontrakPraxisButton() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(tambahKontrakButton));
+        driver.findElement(tambahKontrakButton).click();
     }
 
     public void searchByKeyword(String keyword) {
         WebElement search = wait.until(ExpectedConditions.visibilityOfElementLocated(searchInput));
         search.clear();
         search.sendKeys(keyword);
-    }
-
-    public void clickTambahKontrak() {
-        wait.until(ExpectedConditions.elementToBeClickable(tambahKontrakButton)).click();
     }
 
     public void clickKontrakIconByNama(String namaSiswa) {

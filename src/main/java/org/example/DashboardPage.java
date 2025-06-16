@@ -1,4 +1,4 @@
-package org.example.praxisAcademy;
+package org.example;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,9 +16,8 @@ public class DashboardPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
-//    By pendapatanButton = By.xpath("//button[contains(@id, 'pendapatan') and contains(text(), 'Pendapatan')]");
-
     By pendapatanButton = By.id("pendapatan-button");
+    By konsumsiButton = By.id("pendapatan-boarding-konsumsi-link");
     By praxisAcademyButton = By.id("pendapatan-praxis-link");
 
     public void clickPendapatanButton() {
@@ -28,9 +27,18 @@ public class DashboardPage {
     }
 
     public void waitUntilKonsumsiButtonVisible() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(konsumsiButton));
+    }
+
+    public void waitUntilPraxisAcademyButtonVisible(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(praxisAcademyButton));
     }
+
     public void clickKonsumsiButton() {
+        driver.findElement(konsumsiButton).click();
+    }
+
+    public void clickPraxisButton() {
         driver.findElement(praxisAcademyButton).click();
     }
 }

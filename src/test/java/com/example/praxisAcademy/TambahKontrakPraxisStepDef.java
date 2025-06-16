@@ -1,93 +1,130 @@
 package com.example.praxisAcademy;
 
 import com.example.support.TestContext;
-import io.cucumber.java.en.*;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.example.DashboardPage;
 import org.example.praxisAcademy.MonitoringPraxisPage;
+import org.example.praxisAcademy.TambahKontrakSiswaPraxisPage;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 
 public class TambahKontrakPraxisStepDef {
-
     private final TestContext context;
     private WebDriver driver;
 
-    MonitoringPraxisPage praxisPage;
+    DashboardPage dashboard;
+    MonitoringPraxisPage monitoringPraxisPage;
+    TambahKontrakSiswaPraxisPage tambahKontrakSiswaPraxisPage;
 
     public TambahKontrakPraxisStepDef(TestContext context) {
         this.context = context;
         this.driver = context.getDriver();
     }
 
-    @Given("pengguna sudah login dan berada di halaman monitoring Praxis")
-    public void penggunaSudahLoginDanBeradaDiHalamanMonitoringPraxis() {
-        praxisPage = new MonitoringPraxisPage(driver);
-        praxisPage.waitUntilLoaded();
-        System.out.println("[Praxis] Current URL: " + driver.getCurrentUrl());
+    @When("pengguna klik tombol praxis academy di dashboard")
+    public void clickTambahKontrakButton() {
+        dashboard = new DashboardPage(driver);
+        System.out.println("[Dashboard] Current URL: " + driver.getCurrentUrl());
+
+        dashboard.clickPendapatanButton();
+        dashboard.waitUntilPraxisAcademyButtonVisible();
+        dashboard.clickPraxisButton();
+        System.out.println("[Dashboard] Praxis Academy button clicked");
     }
 
-    @And("pengguna mengklik tombol Pendapatan")
-    public void klikPendapatan() {
-        praxisPage = new MonitoringPraxisPage(driver);
-        praxisPage.klikPendapatan();
-        System.out.println("[Praxis] Klik tombol Pendapatan");
+    @Then("pengguna diarahkan ke halaman monitoring praxis academy")
+    public void verifikasiHalamanMonitoringPraxisAcademy() {
+        monitoringPraxisPage = new MonitoringPraxisPage(driver);
+        monitoringPraxisPage.waitUntilLoadedPraxis();
+        String currentUrl = monitoringPraxisPage.getCurrentUrlPraxis();
+        System.out.println("[Monitoring] Current URL: " + currentUrl);
+        Assertions.assertEquals("https://fe-fintrack.vercel.app/pendapatan/praxis", currentUrl);
     }
 
-    @And("pengguna memilih link Praxis Academy")
-    public void klikPraxisAcademy() {
-        praxisPage = new MonitoringPraxisPage(driver);
-        praxisPage.klikPraxisAcademy();
-        System.out.println("[Praxis] Klik link Praxis Academy");
+    @When("pengguna klik tombol tambah kontrak siswa praxis")
+    public void klikTombolKontrakSiswaPraxis() {
+        monitoringPraxisPage = new MonitoringPraxisPage(driver);
+        monitoringPraxisPage.clickAddKontrakPraxisButton();
+        System.out.println("[Monitoring] Tambah kontrak siswa button clicked");
     }
 
-    @And("pengguna mengklik tombol Tambah Kontrak Praxis")
-    public void klikTambahKontrak() {
-        praxisPage = new MonitoringPraxisPage(driver);
-        praxisPage.klikTambahKontrak();
-        System.out.println("[Praxis] Klik tombol Tambah Kontrak");
+    @Then("pengguna diarahkan ke halaman tambah kontrak siswa praxis academy")
+    public void verifikasiHalamanTambahKontrakPraxisAcademy() {
+        tambahKontrakSiswaPraxisPage = new TambahKontrakSiswaPraxisPage(driver);
+        tambahKontrakSiswaPraxisPage.waitUntilLoaded();
+        String currentUrl = tambahKontrakSiswaPraxisPage.getCurrentUrl();
+        System.out.println("[Tambah Siswa] Current URL: " + currentUrl);
+        Assertions.assertEquals("https://fe-fintrack.vercel.app/pendapatan/praxis/tambah-kontrak", currentUrl);
     }
 
-    @And("pengguna mengisi dan memilih nama siswa")
-    public void isiNamaSiswa() {
-        praxisPage = new MonitoringPraxisPage(driver);
-        praxisPage.setCariSiswaField("Eka Putra");
-        praxisPage.setSiswaFromDropdown();
-        System.out.println("[Praxis] Isi nama siswa: Eka Putra");
+    @When("pengguna menginputkan data kontrak siswa praxis academy yang valid")
+    public void isiFormulirDataPraxisAcademyValid() {
+        tambahKontrakSiswaPraxisPage = new TambahKontrakSiswaPraxisPage(driver);
+        System.out.println("[Tambah Kontrak] Mengisi data valid untuk siswa: Eka");
+        tambahKontrakSiswaPraxisPage.setCariSiswaField("Eka");
+        tambahKontrakSiswaPraxisPage.setSiswaPraxisFromDropdown();
+        tambahKontrakSiswaPraxisPage.setUangKBM("2000000");
+        tambahKontrakSiswaPraxisPage.setUangSPP("2500000");
+        tambahKontrakSiswaPraxisPage.setUangPemeliharaan("1500000");
+        tambahKontrakSiswaPraxisPage.setUangSumbangan("4000000");
+        tambahKontrakSiswaPraxisPage.unggahFileKontrakHeadless();
+        tambahKontrakSiswaPraxisPage.setCatatanField("Kontrak siswa selama 1 tahun");
     }
 
-    @And("pengguna mengisi semua field tagihan")
-    public void isiFieldTagihan() {
-        praxisPage = new MonitoringPraxisPage(driver);
-        praxisPage.isiFieldTagihan();
-        System.out.println("[Praxis] Isi field tagihan");
+    @When("pengguna menginputkan data kontrak siswa praxis academy tanpa file")
+    public void isiFormulirDataPraxisAcademyTidakValid() {
+        tambahKontrakSiswaPraxisPage = new TambahKontrakSiswaPraxisPage(driver);
+        System.out.println("[Tambah Kontrak] Mengisi data tanpa file untuk siswa: Eka");
+        tambahKontrakSiswaPraxisPage.setCariSiswaField("Eka");
+        tambahKontrakSiswaPraxisPage.setSiswaPraxisFromDropdown();
+        tambahKontrakSiswaPraxisPage.setUangKBM("2000000");
+        tambahKontrakSiswaPraxisPage.setUangSPP("2500000");
+        tambahKontrakSiswaPraxisPage.setUangPemeliharaan("1500000");
+        tambahKontrakSiswaPraxisPage.setUangSumbangan("4000000");
+        tambahKontrakSiswaPraxisPage.setCatatanField("Kontrak siswa selama 1 tahun");
     }
 
-    @And("pengguna mengisi catatan")
-    public void isiCatatan() {
-        praxisPage = new MonitoringPraxisPage(driver);
-        praxisPage.isiCatatan("Kontrak untuk siswa Eka Putra - bulan ini.");
-        System.out.println("[Praxis] Isi catatan kontrak");
+    @When("pengguna klik tombol simpan kontrak praxis")
+    public void klikTombolSimpanKontrakPraxis() {
+        tambahKontrakSiswaPraxisPage = new TambahKontrakSiswaPraxisPage(driver);
+        tambahKontrakSiswaPraxisPage.clickSimpanKontrakPraxis();
+        System.out.println("[Tambah Kontrak] Klik tombol Simpan");
     }
 
-    @And("pengguna mengunggah file kontrak PDF yang valid berukuran < 5 MB")
-    public void unggahFileKontrak() {
-        praxisPage = new MonitoringPraxisPage(driver);
-        String filePath = "C:\\Users\\user\\Downloads\\tagihan_Eka Putra.pdf";
-        praxisPage.unggahFileKontrak(filePath);
-        System.out.println("[Praxis] Upload file kontrak: " + filePath);
+    @Then("pengguna diarahkan kembali ke halaman monitoring praxis academy")
+    public void verifikasiKembaliKeHalamanMonitoringPraxis() {
+        monitoringPraxisPage = new MonitoringPraxisPage(driver);
+        monitoringPraxisPage.waitUntilLoadedPraxis();
+        String currentUrl = monitoringPraxisPage.getCurrentUrlPraxis();
+        System.out.println("[Monitoring] Kembali ke halaman monitoring, URL: " + currentUrl);
+        Assertions.assertEquals("https://fe-fintrack.vercel.app/pendapatan/praxis", currentUrl);
     }
 
-    @And("pengguna mengklik tombol simpan kontrak")
-    public void klikSimpanKontrak() {
-        praxisPage = new MonitoringPraxisPage(driver);
-        praxisPage.klikSimpanKontrak();
-        System.out.println("[Praxis] Klik tombol Simpan Kontrak");
+    @Then("data kontrak siswa praxis academy ditampilkan di tabel")
+    public void verifikasiDataKontrakDitampilkan() {
+        monitoringPraxisPage = new MonitoringPraxisPage(driver);
+        monitoringPraxisPage.waitUntilLoadedPraxis();
+        boolean ditemukan = monitoringPraxisPage.isSiswaDisplayed("Eka");
+        System.out.println("[Monitoring] Apakah nama siswa 'Eka' muncul di tabel? " + ditemukan);
+        Assertions.assertTrue(ditemukan);
     }
 
-    @Then("sistem menampilkan notifikasi bahwa kontrak siswa berhasil ditambahkan")
-    public void verifikasiNotifikasiKontrakBerhasil() {
-        praxisPage = new MonitoringPraxisPage(driver);
-        String notifikasi = praxisPage.getNotifikasiBerhasil();
-        System.out.println("[Praxis] Notifikasi: " + notifikasi);
-        Assertions.assertEquals("Kontrak berhasil ditambahkan.", notifikasi);
+    @Then("pengguna tetap berada di halaman tambah kontrak siswa praxis academy")
+    public void verifikasiDataSiswaTidakTersimpan() {
+        tambahKontrakSiswaPraxisPage = new TambahKontrakSiswaPraxisPage(driver);
+        tambahKontrakSiswaPraxisPage.waitUntilLoaded();
+        String currentUrl = tambahKontrakSiswaPraxisPage.getCurrentUrl();
+        System.out.println("[Tambah Kontrak] Current URL: " + currentUrl);
+        Assertions.assertEquals("https://fe-fintrack.vercel.app/pendapatan/praxis/tambah-kontrak", currentUrl);
+    }
+
+    @Then("pengguna melihat pesan error validasi file wajib diisi")
+    public void verifikasiPesanErrorValidasiPraxis() {
+        tambahKontrakSiswaPraxisPage = new TambahKontrakSiswaPraxisPage(driver);
+        tambahKontrakSiswaPraxisPage.waitUntilLoaded();
+        String errorMessage = tambahKontrakSiswaPraxisPage.getPesanErrorPraxis();
+        System.out.println("[Tambah Kontrak] Error Message: " + errorMessage);
+        Assertions.assertEquals("Semua field wajib diisi!", errorMessage);
     }
 }
