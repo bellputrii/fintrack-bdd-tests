@@ -61,8 +61,8 @@ public class TambahSiswaKonsumsiStepDef {
     @When("pengguna menginputkan data konsumsi siswa")
     public void isiFormulirDataKonsumsiValid() {
         tambahSiswaKonsumsi = new TambahSiswaKonsumsiPage(driver);
-        System.out.println("[Tambah Siswa] Mengisi data valid untuk siswa: Putri");
-        tambahSiswaKonsumsi.setCariSiswaField("Putri");
+        System.out.println("[Tambah Siswa] Mengisi data valid untuk siswa: Linda");
+        tambahSiswaKonsumsi.setCariSiswaField("Linda");
         tambahSiswaKonsumsi.setSiswaFromDropdown();
         tambahSiswaKonsumsi.setTanggalMulaiField("05-01-2025");
         tambahSiswaKonsumsi.setTanggalSelesaiField("06-01-2025");
@@ -74,8 +74,8 @@ public class TambahSiswaKonsumsiStepDef {
     @When("pengguna menginputkan data konsumsi siswa yang tidak valid")
     public void isiFormulirDataKonsumsiTidakValid() {
         tambahSiswaKonsumsi = new TambahSiswaKonsumsiPage(driver);
-        System.out.println("[Tambah Siswa] Mengisi data valid untuk siswa: Putri");
-        tambahSiswaKonsumsi.setCariSiswaField("Putri");
+        System.out.println("[Tambah Siswa] Mengisi data valid untuk siswa: Linda");
+        tambahSiswaKonsumsi.setCariSiswaField("Linda");
         tambahSiswaKonsumsi.setSiswaFromDropdown();
         tambahSiswaKonsumsi.setTanggalMulaiField("05-01-2025");
         tambahSiswaKonsumsi.setTanggalSelesaiField("");
@@ -104,8 +104,8 @@ public class TambahSiswaKonsumsiStepDef {
     public void verifikasiDataSiswaDitampilkan() {
         monitoringKonsumsi = new MonitoringKonsumsiPage(driver);
         monitoringKonsumsi.waitUntilLoaded();
-        boolean ditemukan = monitoringKonsumsi.isNamaSiswaOnTabelMonitoringKonsumsi("Putri");
-        System.out.println("[Monitoring] Apakah nama siswa 'Putri' muncul di tabel? " + ditemukan);
+        boolean ditemukan = monitoringKonsumsi.isNamaSiswaOnTabelMonitoringKonsumsi("Linda");
+        System.out.println("[Monitoring] Apakah nama siswa 'Linda' muncul di tabel? " + ditemukan);
         Assertions.assertTrue(ditemukan);
     }
 
