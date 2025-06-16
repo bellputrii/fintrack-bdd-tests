@@ -25,9 +25,11 @@ public class tambahSiswaEkstraPage {
     By optionEkstraKedua = By.xpath("/html/body/div/div/main/div/div/form/div[2]/div/select/option[2]");
     By tanggalMulai = By.id("tanggalMulai");
     By tanggalSelesai = By.id("tanggalSelesai");
+    By pesanError = By.xpath("/html/body/div/div/main/div/div/div/p");
 
     public void isiNama(String nama) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(inputNama));
+        driver.findElement(inputNama).clear();
         driver.findElement(inputNama).sendKeys(nama);
     }
 
@@ -65,5 +67,22 @@ public class tambahSiswaEkstraPage {
 
     public String getCurrentUrl() {
         return driver.getCurrentUrl();
+    }
+
+    public boolean apakahAdaPesanError() {
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(pesanError));
+            return driver.findElement(pesanError).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public String getPesanError() {
+        try {
+            return driver.findElement(pesanError).getText();
+        } catch (Exception e) {
+            return "";
+        }
     }
 }

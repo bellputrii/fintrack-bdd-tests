@@ -6,7 +6,6 @@ import io.cucumber.java.en.When;
 import org.example.DashboardPage;
 import org.example.ekstra.monitoringEkstraPage;
 import org.example.ekstra.tambahSiswaEkstraPage;
-
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 
@@ -26,15 +25,11 @@ public class TambahSiswaEkstra {
     @When("User klik tombol ekstrakurikuler")
     public void navigateToEkstrakurikulerPage() {
         dashboard = new DashboardPage(driver);
-        System.out.println("Current URL before click: " + driver.getCurrentUrl());
-        System.out.println("Page Source contains ekstra-link? " + driver.getPageSource().contains("ekstra-link"));
         dashboard.clickEKstraButton();
-        System.out.println("Current URL after click ekstra button: " + driver.getCurrentUrl());
     }
 
     @Then("User diarahkan ke halaman monitoring Ekstrakurikuler")
     public void redirectToMonitoringExtraPageSuccess() {
-        System.out.println("Inside redirectToMonitoringEkstraPageSuccess function");
         monitoringEkstra = new monitoringEkstraPage(driver);
         monitoringEkstra.waitUntilLoaded();
         String currentUrl = monitoringEkstra.getCurrentUrl();
@@ -45,21 +40,19 @@ public class TambahSiswaEkstra {
     public void navigateToTambahSiswaEkstraPage() {
         monitoringEkstra = new monitoringEkstraPage(driver);
         monitoringEkstra.clikTambahKontrak();
-        System.out.println("Tambah siswa ekstra button clicked successfully");
     }
 
     @Then("User diarahkan ke halaman tambah siswa ekstrakurikuler")
-    public void redirectToTambahSiswaKonsumsiPageSuccess() {
-        System.out.println("Inside redirectTambahEkstrakurikulerPage Success");
+    public void redirectToTambahSiswaEkstraPageSuccess() {
         tambahSiswaEkstra = new tambahSiswaEkstraPage(driver);
         tambahSiswaEkstra.waitUntilLoaded();
         String currentUrl = tambahSiswaEkstra.getCurrentUrl();
         Assertions.assertEquals("https://fe-fintrack.vercel.app/ekstra/tambah-siswa", currentUrl);
     }
+
     @When("User menginputkan data ekstra siswa")
     public void isiFormulirData() {
-        tambahSiswaEkstra = new tambahSiswaEkstraPage(driver); // gunakan page object yang benar
-        System.out.println("[Tambah Kontrak] Mengisi data valid untuk siswa: Lintang");
+        tambahSiswaEkstra = new tambahSiswaEkstraPage(driver);
         tambahSiswaEkstra.isiNama("Ali");
         tambahSiswaEkstra.klikTambah();
         tambahSiswaEkstra.klikEkstra0();
@@ -67,13 +60,26 @@ public class TambahSiswaEkstra {
         tambahSiswaEkstra.isiTanggalMulai("2025-07-01");
         tambahSiswaEkstra.isiTanggalSelesai("2025-12-01");
     }
-    @Then("pengguna diarahkan kembali ke halaman monitoring ekstrakurikuler")
+
+    @Then("User diarahkan kembali ke halaman monitoring Ekstrakurikuler")
     public void verifikasiKembaliKeHalamanMonitoringEkstra() {
         monitoringEkstra = new monitoringEkstraPage(driver);
         monitoringEkstra.waitUntilLoaded();
         String currentUrl = monitoringEkstra.getCurrentUrl();
-        System.out.println("[Monitoring Ekstra] Kembali ke halaman monitoring, URL: " + currentUrl);
         Assertions.assertEquals("https://fe-fintrack.vercel.app/ekstra", currentUrl);
     }
 
+    @When("User tidak mengisi nama siswa dan menekan tombol tambah")
+    public void userTidakIsiNamaDanKlikTambah() {
+        tambahSiswaEkstra = new tambahSiswaEkstraPage(driver);
+        tambahSiswaEkstra.isiNama(""); // Kosongkan nama
+        tambahSiswaEkstra.klikTambah();
+    }
+
+    @Then("sistem menampilkan pesan error {string}")
+    public void sistemMenampilkanPesanError(String expectedError) {
+        tambahSiswaEkstra = new tambahSiswaEkstraPage(driver);
+        Assertions.assertTrue(tambahSiswaEkstra.apakahAdaPesanError(), "Pesan error tidak muncul.");
+        Assertions.assertEquals(expectedError, tambahSiswaEkstra.getPesanError());
+    }
 }
