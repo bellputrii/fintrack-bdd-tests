@@ -12,3 +12,5 @@ Feature: Fitur Ekstrakurikuler
     Then User diarahkan ke halaman monitoring Ekstrakurikuler
     When User klik tombol tambah siswa
     Then User diarahkan ke halaman tambah siswa ekstrakurikuler
+    When User menginputkan data ekstra siswa
+    Then User diarahkan kembali ke halaman monitoring Ekstrakurikuler

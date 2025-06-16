@@ -2,37 +2,65 @@ package org.example.ekstra;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
 public class tambahSiswaEkstraPage {
     WebDriver driver;
+    WebDriverWait wait;
 
     public tambahSiswaEkstraPage(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    By nama = By.id("input-nama");
-    By jenis = By.id("input-ekstra");
-    By biaya = By.id("input-biaya");
-    By periode = By.id("input-periode");
-    By btnSimpan = By.xpath("//button[contains(text(),'Simpan')]");
+    By inputNama = By.xpath("/html/body/div/div/main/div/div/form/div[1]/div/input");
+    By tombolTambah = By.xpath("/html/body/div/div/main/div/div/form/button[1]");
+    By ekstra0 = By.id("ekstra-0");
+    By selectEkstra = By.xpath("/html/body/div/div/main/div/div/form/div[2]/div/select");
+    By optionEkstraKedua = By.xpath("/html/body/div/div/main/div/div/form/div[2]/div/select/option[2]");
+    By tanggalMulai = By.id("tanggalMulai");
+    By tanggalSelesai = By.id("tanggalSelesai");
 
-    public void isiForm(String namaSiswa, String jenisEkstra, String biayaEkstra, String periodeEkstra) {
-        driver.findElement(nama).sendKeys(namaSiswa);
-        driver.findElement(jenis).sendKeys(jenisEkstra);
-        driver.findElement(biaya).sendKeys(biayaEkstra);
-        driver.findElement(periode).sendKeys(periodeEkstra);
+    public void isiNama(String nama) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(inputNama));
+        driver.findElement(inputNama).sendKeys(nama);
     }
 
-    public void klikSimpan() {
-        driver.findElement(btnSimpan).click();
+    public void klikTambah() {
+        wait.until(ExpectedConditions.elementToBeClickable(tombolTambah));
+        driver.findElement(tombolTambah).click();
     }
+
+    public void klikEkstra0() {
+        wait.until(ExpectedConditions.elementToBeClickable(ekstra0));
+        driver.findElement(ekstra0).click();
+    }
+
+    public void pilihJenisEkstraKedua() {
+        WebElement dropdown = driver.findElement(selectEkstra);
+        Select select = new Select(dropdown);
+        select.selectByIndex(1); // index 1 = option ke-2
+    }
+
+    public void isiTanggalMulai(String tanggal) {
+        WebElement inputTanggal = driver.findElement(tanggalMulai);
+        inputTanggal.click();
+        inputTanggal.sendKeys(tanggal);
+    }
+
+    public void isiTanggalSelesai(String tanggal) {
+        WebElement inputTanggal = driver.findElement(tanggalSelesai);
+        inputTanggal.click();
+        inputTanggal.sendKeys(tanggal);
+    }
+
     public void waitUntilLoaded() {
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.visibilityOfElementLocated(nama));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(inputNama));
     }
 
     public String getCurrentUrl() {

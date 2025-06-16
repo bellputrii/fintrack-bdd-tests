@@ -7,6 +7,7 @@ import io.cucumber.java.en.When;
 import org.example.DashboardPage;
 import org.example.ekstra.monitoringEkstraPage;
 import org.example.ekstra.tambahSiswaEkstraPage;
+import org.example.praxisAcademy.TambahKontrakSiswaPraxisPage;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 
@@ -56,4 +57,24 @@ public class TambahSiswaEkstra {
         String currentUrl = tambahSiswaEkstra.getCurrentUrl();
         Assertions.assertEquals("https://fe-fintrack.vercel.app/ekstra/tambah-siswa", currentUrl);
     }
+    @When("User menginputkan data ekstra siswa")
+    public void isiFormulirDataPraxisAcademyValid() {
+        tambahSiswaEkstra = new tambahSiswaEkstraPage(driver); // gunakan page object yang benar
+        System.out.println("[Tambah Kontrak] Mengisi data valid untuk siswa: Lintang");
+        tambahSiswaEkstra.isiNama("Ali");
+        tambahSiswaEkstra.klikTambah();
+        tambahSiswaEkstra.klikEkstra0();
+        tambahSiswaEkstra.pilihJenisEkstraKedua();
+        tambahSiswaEkstra.isiTanggalMulai("2025-07-01");
+        tambahSiswaEkstra.isiTanggalSelesai("2025-12-01");
+    }
+    @Then("pengguna diarahkan kembali ke halaman monitoring ekstrakurikuler")
+    public void verifikasiKembaliKeHalamanMonitoringEkstra() {
+        monitoringEkstra = new monitoringEkstraPage(driver);
+        monitoringEkstra.waitUntilLoaded();
+        String currentUrl = monitoringEkstra.getCurrentUrl();
+        System.out.println("[Monitoring Ekstra] Kembali ke halaman monitoring, URL: " + currentUrl);
+        Assertions.assertEquals("https://fe-fintrack.vercel.app/ekstra", currentUrl);
+    }
+
 }
