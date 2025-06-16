@@ -61,8 +61,8 @@ public class TambahKontrakPraxisStepDef {
     @When("pengguna menginputkan data kontrak siswa praxis academy yang valid")
     public void isiFormulirDataPraxisAcademyValid() {
         tambahKontrakSiswaPraxisPage = new TambahKontrakSiswaPraxisPage(driver);
-        System.out.println("[Tambah Kontrak] Mengisi data valid untuk siswa: Eka");
-        tambahKontrakSiswaPraxisPage.setCariSiswaField("Eka");
+        System.out.println("[Tambah Kontrak] Mengisi data valid untuk siswa: Nur");
+        tambahKontrakSiswaPraxisPage.setCariSiswaField("Nur");
         tambahKontrakSiswaPraxisPage.setSiswaPraxisFromDropdown();
         tambahKontrakSiswaPraxisPage.setUangKBM("2000000");
         tambahKontrakSiswaPraxisPage.setUangSPP("2500000");
@@ -75,8 +75,8 @@ public class TambahKontrakPraxisStepDef {
     @When("pengguna menginputkan data kontrak siswa praxis academy tanpa file")
     public void isiFormulirDataPraxisAcademyTidakValid() {
         tambahKontrakSiswaPraxisPage = new TambahKontrakSiswaPraxisPage(driver);
-        System.out.println("[Tambah Kontrak] Mengisi data tanpa file untuk siswa: Eka");
-        tambahKontrakSiswaPraxisPage.setCariSiswaField("Eka");
+        System.out.println("[Tambah Kontrak] Mengisi data tanpa file untuk siswa: Nur");
+        tambahKontrakSiswaPraxisPage.setCariSiswaField("Nur");
         tambahKontrakSiswaPraxisPage.setSiswaPraxisFromDropdown();
         tambahKontrakSiswaPraxisPage.setUangKBM("2000000");
         tambahKontrakSiswaPraxisPage.setUangSPP("2500000");
@@ -105,8 +105,8 @@ public class TambahKontrakPraxisStepDef {
     public void verifikasiDataKontrakDitampilkan() {
         monitoringPraxisPage = new MonitoringPraxisPage(driver);
         monitoringPraxisPage.waitUntilLoadedPraxis();
-        boolean ditemukan = monitoringPraxisPage.isSiswaDisplayed("Eka Putra");
-        System.out.println("[Monitoring Praxis] Apakah nama siswa 'Eka Putra' muncul di tabel? " + ditemukan);
+        boolean ditemukan = monitoringPraxisPage.isSiswaDisplayed("Nur Aini");
+        System.out.println("[Monitoring Praxis] Apakah nama siswa 'Nur Aini' muncul di tabel? " + ditemukan);
         Assertions.assertTrue(ditemukan);
     }
 
