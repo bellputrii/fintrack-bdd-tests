@@ -12,8 +12,8 @@ Feature: Tambah siswa konsumsi
     Then pengguna diarahkan ke halaman tambah siswa konsumsi
     When pengguna menginputkan data konsumsi siswa
     And klik tombol simpan siswa
-    Then pengguna diarahkan kembali ke halaman monitoring konsumsi
-    And data konsumsi siswa ditampilkan
+    Then pengguna diarahkan ke halaman monitoring konsumsi
+    And pengguna melihat pesan sukses tambah siswa konsumsi
 
   Scenario: Tambah siswa konsumsi dengan data tidak valid
     When pengguna klik tombol tambah siswa

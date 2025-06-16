@@ -16,7 +16,7 @@ public class MonitoringPraxisPage {
 
     public MonitoringPraxisPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
     // ======= Locator Elements =======
@@ -27,8 +27,22 @@ public class MonitoringPraxisPage {
     private By namaSiswaCell = By.xpath("//table/tbody/tr/td[]");
     private By kontrakIcon = By.cssSelector("td svg#kontrak");
     private By bayarIcon = By.cssSelector("td svg#bayar");
+    By successMessage = By.xpath("/html/body/div/div/main/div/div[2]/p");
+//    By successMessage = By.xpath("//p[contains(text(), 'berhasil')]");
+//    By successMessage = By.xpath("/html/body/div/div/main/div/div[3]");
 
     // ======= Interactions =======
+
+    public String getSuccessMessage() {
+        isOnMonitoringPraxisPage();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(successMessage));
+        return driver.findElement(successMessage).getText();
+    }
+
+    public boolean isOnMonitoringPraxisPage() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(levelSelect));
+        return driver.getCurrentUrl().contains("https://fe-fintrack.vercel.app/pendapatan/praxis");
+    }
 
     By namaSiswaBaris = By.xpath("td[1]"); // perhatikan: ini hanya untuk dalam konteks <tr>
     By tabelBaris = By.xpath("//table/tbody/tr");
@@ -49,27 +63,16 @@ public class MonitoringPraxisPage {
 
         throw new RuntimeException("Siswa dengan nama '" + namaSiswaTarget + "' tidak ditemukan di tabel.");
     }
-//
-//    public void clickPembayaranButton(String namaSiswaTarget) {
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(tableRows));
-//        List<WebElement> rows = driver.findElements(tableRows);
-//
-//        for (WebElement row : rows) {
-//            WebElement namaCell = row.findElement(namaSiswaCell);
-//            if (namaCell.getText().toLowerCase().contains(namaSiswaTarget.toLowerCase())) {
-//                WebElement bayarButton = row.findElement(bayarIcon);
-//                bayarButton.click();
-//                System.out.println("[ACTION] Klik tombol bayar untuk siswa: " + namaSiswaTarget);
-//                return;
-//            }
-//        }
-//
-//        throw new RuntimeException("Siswa dengan nama '" + namaSiswaTarget + "' tidak ditemukan di tabel.");
-//    }
 
-    public boolean isOnMonitoringPraxisPage() {
-        return driver.getCurrentUrl().contains("https://fe-fintrack.vercel.app/pendapatan/praxis");
+    public void waitUntilLoaded() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(tambahKontrakButton));
+        wait.until(ExpectedConditions.urlContains("https://fe-fintrack.vercel.app/pendapatan/praxis"));
     }
+
+
+//    public boolean isOnMonitoringPraxisPage() {
+//        return driver.getCurrentUrl().contains("https://fe-fintrack.vercel.app/pendapatan/praxis");
+//    }
 
     public String getPaymentStatus(String studentName, String paymentType) {
         try {
@@ -216,4 +219,44 @@ public class MonitoringPraxisPage {
                 row.findElement(namaSiswaCell).getText().equalsIgnoreCase(namaSiswa)
         );
     }
+
+    public void printAllVisibleTextElements() {
+        List<WebElement> elements = driver.findElements(By.xpath("//*[text()]"));
+
+        System.out.println("=== DAFTAR ELEMEN TEKS YANG DITEMUKAN DI HALAMAN ===");
+        for (WebElement element : elements) {
+            String tag = element.getTagName();
+            String text = element.getText().trim();
+            String id = element.getAttribute("id");
+            String className = element.getAttribute("class");
+
+            if (!text.isEmpty()) {
+                System.out.println("--------------------------------------------------");
+                System.out.println("Tag      : " + tag);
+                System.out.println("Text     : " + text);
+                System.out.println("ID       : " + id);
+                System.out.println("Class    : " + className);
+            }
+        }
+        System.out.println("=== SELESAI CETAK ELEMEN ===");
+    }
+
+
+    //
+//    public void clickPembayaranButton(String namaSiswaTarget) {
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(tableRows));
+//        List<WebElement> rows = driver.findElements(tableRows);
+//
+//        for (WebElement row : rows) {
+//            WebElement namaCell = row.findElement(namaSiswaCell);
+//            if (namaCell.getText().toLowerCase().contains(namaSiswaTarget.toLowerCase())) {
+//                WebElement bayarButton = row.findElement(bayarIcon);
+//                bayarButton.click();
+//                System.out.println("[ACTION] Klik tombol bayar untuk siswa: " + namaSiswaTarget);
+//                return;
+//            }
+//        }
+//
+//        throw new RuntimeException("Siswa dengan nama '" + namaSiswaTarget + "' tidak ditemukan di tabel.");
+//    }
 }

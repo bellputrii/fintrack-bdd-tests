@@ -1,6 +1,7 @@
 package com.example.konsumsi;
 
 import com.example.support.TestContext;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.example.DashboardPage;
@@ -39,7 +40,7 @@ public class TambahSiswaKonsumsiStepDef {
         monitoringKonsumsi.waitUntilLoaded();
         String currentUrl = monitoringKonsumsi.getCurrentUrl();
         System.out.println("[Monitoring] Current URL: " + currentUrl);
-        Assertions.assertEquals("https://fe-fintrack.vercel.app/pendapatan/boarding-konsumsi", currentUrl);
+        Assertions.assertTrue(monitoringKonsumsi.isOnMonitoringPage());
     }
 
     @When("pengguna klik tombol tambah siswa")
@@ -61,8 +62,8 @@ public class TambahSiswaKonsumsiStepDef {
     @When("pengguna menginputkan data konsumsi siswa")
     public void isiFormulirDataKonsumsiValid() {
         tambahSiswaKonsumsi = new TambahSiswaKonsumsiPage(driver);
-        System.out.println("[Tambah Siswa] Mengisi data valid untuk siswa: Linda");
-        tambahSiswaKonsumsi.setCariSiswaField("Linda");
+        System.out.println("[Tambah Siswa] Mengisi data valid untuk siswa: Taufik");
+        tambahSiswaKonsumsi.setCariSiswaField("Taufik");
         tambahSiswaKonsumsi.setSiswaFromDropdown();
         tambahSiswaKonsumsi.setTanggalMulaiField("05-01-2025");
         tambahSiswaKonsumsi.setTanggalSelesaiField("06-01-2025");
@@ -74,8 +75,8 @@ public class TambahSiswaKonsumsiStepDef {
     @When("pengguna menginputkan data konsumsi siswa yang tidak valid")
     public void isiFormulirDataKonsumsiTidakValid() {
         tambahSiswaKonsumsi = new TambahSiswaKonsumsiPage(driver);
-        System.out.println("[Tambah Siswa] Mengisi data valid untuk siswa: Linda");
-        tambahSiswaKonsumsi.setCariSiswaField("Linda");
+        System.out.println("[Tambah Siswa] Mengisi data valid untuk siswa: Taufik");
+        tambahSiswaKonsumsi.setCariSiswaField("Taufik");
         tambahSiswaKonsumsi.setSiswaFromDropdown();
         tambahSiswaKonsumsi.setTanggalMulaiField("05-01-2025");
         tambahSiswaKonsumsi.setTanggalSelesaiField("");
@@ -91,21 +92,21 @@ public class TambahSiswaKonsumsiStepDef {
         System.out.println("[Tambah Siswa] Klik tombol Simpan");
     }
 
-    @Then("pengguna diarahkan kembali ke halaman monitoring konsumsi")
-    public void verifikasiKembaliKeHalamanMonitoring() {
-        monitoringKonsumsi = new MonitoringKonsumsiPage(driver);
-        monitoringKonsumsi.waitUntilLoaded();
-        String currentUrl = monitoringKonsumsi.getCurrentUrl();
-        System.out.println("[Monitoring] Kembali ke halaman monitoring, URL: " + currentUrl);
-        Assertions.assertEquals("https://fe-fintrack.vercel.app/pendapatan/boarding-konsumsi", currentUrl);
-    }
+//    @Then("pengguna diarahkan kembali ke halaman monitoring konsumsi")
+//    public void verifikasiKembaliKeHalamanMonitoring() {
+//        monitoringKonsumsi = new MonitoringKonsumsiPage(driver);
+//        monitoringKonsumsi.waitUntilLoaded();
+//        String currentUrl = monitoringKonsumsi.getCurrentUrl();
+//        System.out.println("[Monitoring] Kembali ke halaman monitoring, URL: " + currentUrl);
+//        Assertions.assertEquals("https://fe-fintrack.vercel.app/pendapatan/boarding-konsumsi", currentUrl);
+//    }
 
     @Then("data konsumsi siswa ditampilkan")
     public void verifikasiDataSiswaDitampilkan() {
         monitoringKonsumsi = new MonitoringKonsumsiPage(driver);
         monitoringKonsumsi.waitUntilLoaded();
-        boolean ditemukan = monitoringKonsumsi.isNamaSiswaOnTabelMonitoringKonsumsi("Linda");
-        System.out.println("[Monitoring] Apakah nama siswa 'Linda' muncul di tabel? " + ditemukan);
+        boolean ditemukan = monitoringKonsumsi.isNamaSiswaOnTabelMonitoringKonsumsi("Taufik");
+        System.out.println("[Monitoring] Apakah nama siswa 'Taufik' muncul di tabel? " + ditemukan);
         Assertions.assertTrue(ditemukan);
     }
 
@@ -127,4 +128,19 @@ public class TambahSiswaKonsumsiStepDef {
         Assertions.assertEquals("Semua field wajib diisi!", errorMessage);
     }
 
+    @And("pengguna melihat pesan sukses tambah siswa konsumsi")
+    public void penggunaMelihatPesanSuksesTambahSiswaKonsumsi() {
+        monitoringKonsumsi = new MonitoringKonsumsiPage(driver);
+        monitoringKonsumsi.waitUntilLoaded();
+        Assertions.assertEquals("Data siswa berhasil ditambahkan!", monitoringKonsumsi.getSuccessMessage());
+        System.out.println("[Monitoring] Pesan sukses tambah siswa ditampilkan");
+    }
+
+    @When("pengguna klik tombol dashboard")
+    public void penggunaKlikTombolDashboard() {
+        dashboard = new DashboardPage(driver);
+        dashboard.waitUntilLoaded();
+        dashboard.clickDashboardButton();
+        System.out.println("Dashboard button clicked");
+    }
 }

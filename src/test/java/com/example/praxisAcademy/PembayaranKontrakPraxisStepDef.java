@@ -44,8 +44,8 @@ public class PembayaranKontrakPraxisStepDef {
     public void klikTombolPembayaranSiswaPraxis() {
         monitoringPraxis = new MonitoringPraxisPage(driver);
         monitoringPraxis.waitUntilLoadedPraxis();
-        monitoringPraxis.selectLevel("Level XI");
-        monitoringPraxis.clickPembayaranButtonPraxis("Linda Mawar");
+        monitoringPraxis.selectLevel("Level XII");
+        monitoringPraxis.clickPembayaranButtonPraxis("Taufik");
         System.out.println("[Monitoring Praxis] Pembayaran button clicked");
     }
 
@@ -62,12 +62,12 @@ public class PembayaranKontrakPraxisStepDef {
         pembayaranPraxisAcademy = new PembayaranPraxisAcademyPage(driver);
         pembayaranPraxisAcademy.waitUntilLoaded();
         pembayaranPraxisAcademy.setTanggalPembayaran("06-17-2025");
-        pembayaranPraxisAcademy.setKbm("3000000");
-        pembayaranPraxisAcademy.setSpp("3000000");
-        pembayaranPraxisAcademy.setPemeliharaan("3000000");
-        pembayaranPraxisAcademy.setSumbangan("3000000");
+        pembayaranPraxisAcademy.setKbm("200000");
+        pembayaranPraxisAcademy.setSpp("200000");
+        pembayaranPraxisAcademy.setPemeliharaan("200000");
+        pembayaranPraxisAcademy.setSumbangan("200000");
         pembayaranPraxisAcademy.setCatatan("Membayar tagihan praxis");
-        System.out.println("[Pembayaran] Mengisi data valid untuk pembayaran siswa: Linda");
+        System.out.println("[Pembayaran] Mengisi data valid untuk pembayaran siswa: Taufik");
     }
 
     @When("pengguna menginputkan data pembayaran praxis siswa yang tidak valid")
@@ -79,7 +79,7 @@ public class PembayaranKontrakPraxisStepDef {
         pembayaranPraxisAcademy.setPemeliharaan("3000000");
         pembayaranPraxisAcademy.setSumbangan("3000000");
         pembayaranPraxisAcademy.setCatatan("Field kosong untuk testing validasi");
-        System.out.println("[Pembayaran] Mengisi data tidak valid untuk pembayaran siswa: Linda");
+        System.out.println("[Pembayaran] Mengisi data tidak valid untuk pembayaran siswa: Taufik");
     }
 
     @And("pengguna klik tombol simpan pembayaran praxis")
@@ -103,12 +103,12 @@ public class PembayaranKontrakPraxisStepDef {
         monitoringPraxis = new MonitoringPraxisPage(driver);
         monitoringPraxis.waitUntilLoadedPraxis();
 
-        Assertions.assertTrue(monitoringPraxis.isSiswaDisplayed("Linda Mawar"));
+        Assertions.assertTrue(monitoringPraxis.isSiswaDisplayed("Taufik"));
 //        Assertions.assertEquals("Lunas", monitoringPraxis.getPaymentStatus("Nur", "KBM"));
 //        Assertions.assertEquals("Lunas", monitoringPraxis.getPaymentStatus("Nur", "SPP"));
 //        Assertions.assertEquals("Lunas", monitoringPraxis.getPaymentStatus("Nur", "Pemeliharaan"));
 //        Assertions.assertEquals("Lunas", monitoringPraxis.getPaymentStatus("Nur", "Sumbangan"));
-        System.out.println("[Monitoring] Data pembayaran siswa Linda ditampilkan dengan status Lunas");
+        System.out.println("[Monitoring] Data pembayaran siswa Taufik ditampilkan dengan status Lunas");
     }
 
     @Then("pengguna tetap berada di halaman pembayaran siswa praxis academy")
@@ -126,5 +126,13 @@ public class PembayaranKontrakPraxisStepDef {
         String errorMessage = pembayaranPraxisAcademy.getPesanError();
         Assertions.assertEquals("Lengkapi keseluruhan field pembayaran", errorMessage);
         System.out.println("[Pembayaran] Error Message: " + errorMessage);
+    }
+
+    @And("pengguna melihat pesan sukses pembayaran siswa praxis")
+    public void penggunaMelihatPesanSuksesPembayaranSiswaPraxis() {
+        monitoringPraxis = new MonitoringPraxisPage(driver);
+        monitoringPraxis.waitUntilLoaded();
+        Assertions.assertEquals("Pembayaran siswa berhasil dilakukan!", monitoringPraxis.getSuccessMessage());
+        System.out.println("[Monitoring] Pesan sukses pembayaran ditampilkan");
     }
 }

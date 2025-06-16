@@ -13,7 +13,7 @@ Feature: Pembayaran siswa Praxis Academy
     Then pengguna diarahkan ke halaman pembayaran siswa praxis academy
     When pengguna menginputkan data pembayaran praxis siswa yang valid
     And pengguna klik tombol simpan pembayaran praxis
-    Then pengguna diarahkan kembali ke halaman monitoring praxis academy
+    Then pengguna diarahkan ke halaman monitoring praxis academy
     And data pembayaran siswa praxis academy ditampilkan di tabel monitoring
 
   Scenario: Pembayaran siswa praxis academy dengan data tidak valid

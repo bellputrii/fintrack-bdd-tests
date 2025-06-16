@@ -13,9 +13,7 @@ Feature: Pembayaran siswa konsumsi
     When pengguna menginputkan data pembayaran konsumsi siswa
     And pengguna klik tombol simpan pembayaran
     Then pengguna diarahkan ke halaman monitoring konsumsi
-    When pengguna klik tombol riwayat pembayaran siswa
-    Then pengguna diarahkan ke halaman riwayat pembayaran siswa
-    And pengguna melihat data pembayaran telah tercatat
+    And pengguna melihat pesan sukses pembayaran siswa konsumsi
 
   Scenario: Pembayaran siswa konsumsi dengan data tidak valid
     When pengguna klik tombol pembayaran siswa

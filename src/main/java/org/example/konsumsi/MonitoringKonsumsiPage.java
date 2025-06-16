@@ -26,6 +26,16 @@ public class MonitoringKonsumsiPage {
 
     By namaSiswaBaris = By.xpath("td[1]"); // perhatikan: ini hanya untuk dalam konteks <tr>
     By tabelBaris = By.xpath("//table/tbody/tr");
+    By successMessage = By.xpath("/html/body/div/div/main/div/div[3]");
+
+    public boolean isOnMonitoringPage() {
+        return driver.getCurrentUrl().contains("https://fe-fintrack.vercel.app/pendapatan/boarding-konsumsi");
+    }
+
+    public String getSuccessMessage() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(successMessage));
+        return driver.findElement(successMessage).getText();
+    }
 
     public void clickPembayaranButton(String namaSiswaTarget) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(tabelBaris));
@@ -62,8 +72,8 @@ public class MonitoringKonsumsiPage {
     }
 
     public void waitUntilLoaded() {
-        wait.until(ExpectedConditions.urlToBe("https://fe-fintrack.vercel.app/pendapatan/boarding-konsumsi"));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(tambahSiswaButton)); // optionally also wait for a unique element
+        wait.until(ExpectedConditions.urlContains("https://fe-fintrack.vercel.app/pendapatan/boarding-konsumsi"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(tambahSiswaButton));
     }
 
     public String getCurrentUrl() {

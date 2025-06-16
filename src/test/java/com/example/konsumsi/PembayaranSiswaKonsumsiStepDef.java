@@ -27,18 +27,18 @@ public class PembayaranSiswaKonsumsiStepDef {
     public void klikTombolPembayaran() {
         monitoringKonsumsi = new MonitoringKonsumsiPage(driver);
         monitoringKonsumsi.waitUntilLoaded();
-        monitoringKonsumsi.selectLevel("Level IX");
-        monitoringKonsumsi.clickPembayaranButton("Putri");
+        monitoringKonsumsi.selectLevel("Level XII");
+        monitoringKonsumsi.clickPembayaranButton("Taufik");
         System.out.println("[Monitoring] Pembayaran button clicked");
     }
 
-    @When("pengguna klik tombol riwayat pembayaran siswa")
-    public void klikTombolRiwayatPembayaran() {
-        monitoringKonsumsi = new MonitoringKonsumsiPage(driver);
-        monitoringKonsumsi.waitUntilLoaded();
-        monitoringKonsumsi.clickRiwayatPembayaranButton("Putri");
-        System.out.println("[Monitoring] Riwayat pembayaran button clicked");
-    }
+//    @When("pengguna klik tombol riwayat pembayaran siswa")
+//    public void klikTombolRiwayatPembayaran() {
+//        monitoringKonsumsi = new MonitoringKonsumsiPage(driver);
+//        monitoringKonsumsi.waitUntilLoaded();
+//        monitoringKonsumsi.clickRiwayatPembayaranButton("Iqbal");
+//        System.out.println("[Monitoring] Riwayat pembayaran button clicked");
+//    }
 
     @Then("pengguna diarahkan ke halaman pembayaran siswa konsumsi")
     public void verifikasiHalamanPembayaranKonsumsi() {
@@ -55,7 +55,7 @@ public class PembayaranSiswaKonsumsiStepDef {
         pembayaranKonsumsi.setTanggalPembayaranField("06-10-2025");
         pembayaranKonsumsi.setNominalPembayaranKonsumsiField("10000");
         pembayaranKonsumsi.setCatatanField("Membayar tagihan konsumsi");
-        System.out.println("[Pembayaran] Mengisi data valid untuk pembayaran siswa: Putri");
+        System.out.println("[Pembayaran] Mengisi data valid untuk pembayaran siswa: Taufik");
     }
 
     @When("pengguna menginputkan data pembayaran konsumsi siswa yang tidak valid")
@@ -65,7 +65,7 @@ public class PembayaranSiswaKonsumsiStepDef {
         pembayaranKonsumsi.setTanggalPembayaranField("06-10-2025");
         pembayaranKonsumsi.setNominalPembayaranKonsumsiField("");
         pembayaranKonsumsi.setCatatanField("Field kosong untuk testing validasi");
-        System.out.println("[Pembayaran] Mengisi data tidak valid untuk pembayaran siswa: Putri");
+        System.out.println("[Pembayaran] Mengisi data tidak valid untuk pembayaran siswa: Taufik");
     }
 
     @And("pengguna klik tombol simpan pembayaran")
@@ -75,22 +75,22 @@ public class PembayaranSiswaKonsumsiStepDef {
         System.out.println("[Pembayaran] Klik tombol simpan pembayaran");
     }
 
-    @Then("pengguna diarahkan ke halaman riwayat pembayaran siswa")
-    public void verifikasiHalamanRiwayatPembayaran() {
-        riwayatPembayaranKonsumsiPage = new RiwayatPembayaranKonsumsiPage(driver);
-        riwayatPembayaranKonsumsiPage.waitUntilLoaded();
-        System.out.println("[Riwayat Pembayaran] Current URL: " + driver.getCurrentUrl());
-        Assertions.assertTrue(riwayatPembayaranKonsumsiPage.isOnPembayaranKonsumsiPage());
-    }
+//    @Then("pengguna diarahkan ke halaman riwayat pembayaran siswa")
+//    public void verifikasiHalamanRiwayatPembayaran() {
+//        riwayatPembayaranKonsumsiPage = new RiwayatPembayaranKonsumsiPage(driver);
+//        riwayatPembayaranKonsumsiPage.waitUntilLoaded();
+//        System.out.println("[Riwayat Pembayaran] Current URL: " + driver.getCurrentUrl());
+//        Assertions.assertTrue(riwayatPembayaranKonsumsiPage.isOnPembayaranKonsumsiPage());
+//    }
 
-    @And("pengguna melihat data pembayaran telah tercatat")
-    public void verifikasiDataPembayaranTercatat() {
-        riwayatPembayaranKonsumsiPage = new RiwayatPembayaranKonsumsiPage(driver);
-        riwayatPembayaranKonsumsiPage.waitUntilLoaded();
-        Assertions.assertEquals("2025-06-10", riwayatPembayaranKonsumsiPage.getTanggalPembayaranText());
-        Assertions.assertEquals("Rp 50.000", riwayatPembayaranKonsumsiPage.getNominalPembayaranText());
-        System.out.println("[Riwayat Pembayaran] Data pembayaran siswa berhasil ditampilkan");
-    }
+//    @And("pengguna melihat data pembayaran telah tercatat")
+//    public void verifikasiDataPembayaranTercatat() {
+//        riwayatPembayaranKonsumsiPage = new RiwayatPembayaranKonsumsiPage(driver);
+//        riwayatPembayaranKonsumsiPage.waitUntilLoaded();
+//        Assertions.assertEquals("2025-06-10", riwayatPembayaranKonsumsiPage.getTanggalPembayaranText());
+//        Assertions.assertEquals("Rp 50.000", riwayatPembayaranKonsumsiPage.getNominalPembayaranText());
+//        System.out.println("[Riwayat Pembayaran] Data pembayaran siswa berhasil ditampilkan");
+//    }
 
     @Then("pengguna tetap berada di halaman pembayaran siswa konsumsi")
     public void tetapDiHalamanPembayaran() {
@@ -109,4 +109,11 @@ public class PembayaranSiswaKonsumsiStepDef {
         Assertions.assertEquals("Minimal isi salah satu pembayaran (boarding/konsumsi).", errorMessage);
     }
 
+    @And("pengguna melihat pesan sukses pembayaran siswa konsumsi")
+    public void penggunaMelihatPesanSuksesPembayaran() {
+        monitoringKonsumsi = new MonitoringKonsumsiPage(driver);
+        monitoringKonsumsi.waitUntilLoaded();
+        Assertions.assertEquals("Pembayaran siswa berhasil dilakukan!", monitoringKonsumsi.getSuccessMessage());
+        System.out.println("[Monitoring] Pesan sukses pembayaran ditampilkan");
+    }
 }

@@ -4,13 +4,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
+//@ScenarioScoped
 public class TestContext {
     private WebDriver driver;
 
     public TestContext() {}
     public WebDriver getDriver() {
         if (driver == null) {
-            driver = new ChromeDriver();
+            driver = new EdgeDriver();
         }
         return driver;
     }

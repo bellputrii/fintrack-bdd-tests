@@ -1,9 +1,11 @@
 package com.example.praxisAcademy;
 
 import com.example.support.TestContext;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.example.DashboardPage;
+import org.example.konsumsi.MonitoringKonsumsiPage;
 import org.example.praxisAcademy.MonitoringPraxisPage;
 import org.example.praxisAcademy.TambahKontrakSiswaPraxisPage;
 import org.junit.jupiter.api.Assertions;
@@ -14,7 +16,7 @@ public class TambahKontrakPraxisStepDef {
     private WebDriver driver;
 
     DashboardPage dashboard;
-    MonitoringPraxisPage monitoringPraxisPage;
+    MonitoringPraxisPage monitoringPraxis;
     TambahKontrakSiswaPraxisPage tambahKontrakSiswaPraxisPage;
 
     public TambahKontrakPraxisStepDef(TestContext context) {
@@ -35,17 +37,26 @@ public class TambahKontrakPraxisStepDef {
 
     @Then("pengguna diarahkan ke halaman monitoring praxis academy")
     public void verifikasiHalamanMonitoringPraxisAcademy() {
-        monitoringPraxisPage = new MonitoringPraxisPage(driver);
-        monitoringPraxisPage.waitUntilLoadedPraxis();
-        String currentUrl = monitoringPraxisPage.getCurrentUrlPraxis();
+        monitoringPraxis = new MonitoringPraxisPage(driver);
+        monitoringPraxis.waitUntilLoadedPraxis();
+        String currentUrl = monitoringPraxis.getCurrentUrlPraxis();
         System.out.println("[Monitoring] Current URL: " + currentUrl);
-        Assertions.assertEquals("https://fe-fintrack.vercel.app/pendapatan/praxis", currentUrl);
+        Assertions.assertTrue(monitoringPraxis.isOnMonitoringPraxisPage());
     }
+
+    //    @Then("pengguna diarahkan kembali ke halaman monitoring praxis academy")
+//    public void verifikasiKembaliKeHalamanMonitoringPraxis() {
+//        monitoringPraxisPage = new MonitoringPraxisPage(driver);
+//        monitoringPraxisPage.waitUntilLoadedPraxis();
+//        String currentUrl = monitoringPraxisPage.getCurrentUrlPraxis();
+//        System.out.println("[Monitoring Praxis] Kembali ke halaman monitoring, URL: " + currentUrl);
+//        Assertions.assertEquals("https://fe-fintrack.vercel.app/pendapatan/praxis", currentUrl);
+//    }
 
     @When("pengguna klik tombol tambah kontrak siswa praxis")
     public void klikTombolKontrakSiswaPraxis() {
-        monitoringPraxisPage = new MonitoringPraxisPage(driver);
-        monitoringPraxisPage.clickAddKontrakPraxisButton();
+        monitoringPraxis = new MonitoringPraxisPage(driver);
+        monitoringPraxis.clickAddKontrakPraxisButton();
         System.out.println("[Monitoring] Tambah kontrak siswa button clicked");
     }
 
@@ -61,8 +72,8 @@ public class TambahKontrakPraxisStepDef {
     @When("pengguna menginputkan data kontrak siswa praxis academy yang valid")
     public void isiFormulirDataPraxisAcademyValid() {
         tambahKontrakSiswaPraxisPage = new TambahKontrakSiswaPraxisPage(driver);
-        System.out.println("[Tambah Kontrak] Mengisi data valid untuk siswa: Nur");
-        tambahKontrakSiswaPraxisPage.setCariSiswaField("Nur");
+        System.out.println("[Tambah Kontrak] Mengisi data valid untuk siswa: Citra");
+        tambahKontrakSiswaPraxisPage.setCariSiswaField("Citra");
         tambahKontrakSiswaPraxisPage.setSiswaPraxisFromDropdown();
         tambahKontrakSiswaPraxisPage.setUangKBM("2000000");
         tambahKontrakSiswaPraxisPage.setUangSPP("2500000");
@@ -75,8 +86,8 @@ public class TambahKontrakPraxisStepDef {
     @When("pengguna menginputkan data kontrak siswa praxis academy tanpa file")
     public void isiFormulirDataPraxisAcademyTidakValid() {
         tambahKontrakSiswaPraxisPage = new TambahKontrakSiswaPraxisPage(driver);
-        System.out.println("[Tambah Kontrak] Mengisi data tanpa file untuk siswa: Nur");
-        tambahKontrakSiswaPraxisPage.setCariSiswaField("Nur");
+        System.out.println("[Tambah Kontrak] Mengisi data tanpa file untuk siswa: Iqbal");
+        tambahKontrakSiswaPraxisPage.setCariSiswaField("Taufik");
         tambahKontrakSiswaPraxisPage.setSiswaPraxisFromDropdown();
         tambahKontrakSiswaPraxisPage.setUangKBM("2000000");
         tambahKontrakSiswaPraxisPage.setUangSPP("2500000");
@@ -92,21 +103,14 @@ public class TambahKontrakPraxisStepDef {
         System.out.println("[Tambah Kontrak] Klik tombol Simpan");
     }
 
-    @Then("pengguna diarahkan kembali ke halaman monitoring praxis academy")
-    public void verifikasiKembaliKeHalamanMonitoringPraxis() {
-        monitoringPraxisPage = new MonitoringPraxisPage(driver);
-        monitoringPraxisPage.waitUntilLoadedPraxis();
-        String currentUrl = monitoringPraxisPage.getCurrentUrlPraxis();
-        System.out.println("[Monitoring Praxis] Kembali ke halaman monitoring, URL: " + currentUrl);
-        Assertions.assertEquals("https://fe-fintrack.vercel.app/pendapatan/praxis", currentUrl);
-    }
+
 
     @Then("data kontrak siswa praxis academy ditampilkan di tabel")
     public void verifikasiDataKontrakDitampilkan() {
-        monitoringPraxisPage = new MonitoringPraxisPage(driver);
-        monitoringPraxisPage.waitUntilLoadedPraxis();
-        boolean ditemukan = monitoringPraxisPage.isSiswaDisplayed("Nur Aini");
-        System.out.println("[Monitoring Praxis] Apakah nama siswa 'Nur Aini' muncul di tabel? " + ditemukan);
+        monitoringPraxis = new MonitoringPraxisPage(driver);
+        monitoringPraxis.waitUntilLoadedPraxis();
+        boolean ditemukan = monitoringPraxis.isSiswaDisplayed("Iqbal");
+        System.out.println("[Monitoring Praxis] Apakah nama siswa 'Iqbal' muncul di tabel? " + ditemukan);
         Assertions.assertTrue(ditemukan);
     }
 
@@ -126,5 +130,14 @@ public class TambahKontrakPraxisStepDef {
         String errorMessage = tambahKontrakSiswaPraxisPage.getPesanErrorPraxis();
         System.out.println("[Tambah Kontrak] Error Message: " + errorMessage);
         Assertions.assertEquals("Semua field wajib diisi!", errorMessage);
+    }
+
+    @And("pengguna melihat pesan sukses kontrak siswa praxis")
+    public void penggunaMelihatPesanSuksesKontrakSiswaPraxis() {
+        monitoringPraxis = new MonitoringPraxisPage(driver);
+        monitoringPraxis.waitUntilLoaded();
+        monitoringPraxis.printAllVisibleTextElements();
+        Assertions.assertEquals("Data siswa berhasil ditambahkan!", monitoringPraxis.getSuccessMessage());
+        System.out.println("[Monitoring] Pesan sukses data siswa ditampilkan");
     }
 }

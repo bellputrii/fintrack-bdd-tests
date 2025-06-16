@@ -13,7 +13,7 @@ Feature: Tambah Kontrak Siswa Praxis Academy
     Then pengguna diarahkan ke halaman tambah kontrak siswa praxis academy
     When pengguna menginputkan data kontrak siswa praxis academy yang valid
     And pengguna klik tombol simpan kontrak praxis
-    Then pengguna diarahkan kembali ke halaman monitoring praxis academy
+    Then pengguna diarahkan ke halaman monitoring praxis academy
     And data kontrak siswa praxis academy ditampilkan di tabel
 
   Scenario: Tambah kontrak siswa praxis academy dengan data tidak valid
