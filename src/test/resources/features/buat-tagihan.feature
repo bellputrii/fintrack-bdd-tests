@@ -22,4 +22,4 @@ Feature: Buat Tagihan Siswa
     When pengguna menginputkan data tagihan siswa tidak valid
     And klik tombol simpan dan cetak tagihan
     Then pengguna tetap dihalaman buat tagihan
-    And muncul pesan error "Data tagihan tidak valid"
+    And muncul pesan error "NISN harus diisi"
