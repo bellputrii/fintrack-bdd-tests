@@ -1,6 +1,3 @@
-Berikut versi terbaru file `README.md` untuk **Fintrack BDD Testing** dengan penyesuaian skenario fitur yang kamu sebutkan (Praxis Academy, Boarding & Konsumsi, Ekstrakurikuler), serta pengujian untuk penambahan kontrak, pembayaran, dan pembuatan tagihan:
-
----
 
 ```markdown
 # 🧪 FINTRACK BDD Testing with Qase.io
