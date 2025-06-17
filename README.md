@@ -26,11 +26,11 @@ Semua pengujian dilakukan berdasarkan skenario Gherkin yang mendeskripsikan inte
 
 ## Fokus Branch: `annisa`
 
-> ⚠️ Harap perhatikan bahwa seluruh pengembangan dan pengujian dilakukan pada branch `annisa`.  
-> Pastikan Anda berpindah ke branch ini setelah melakukan clone:
+> ⚠️ Harap perhatikan bahwa kode final pengujian berada pada branch `annisa`.  
+> Pastikan Anda melakukan clone ke branch ini:
 
 ```bash
-git checkout annisa
+git clone -b annisa https://github.com/bellputrii/fintrack-bdd-tests.git
 ````
 ---
 
