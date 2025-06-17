@@ -40,6 +40,8 @@ Untuk dokumentasi lengkap pengujian, silakan kunjungi:
 
 👉 **[Qase.io - Fintrack Project](https://app.qase.io/project/FINTRACK)**
 
+atau **bisa akses pdf FINTRACK-QASE.IO-with-defect**
+
 ---
 
 ## 👩‍🏫 Untuk Ibu Divi Galih Prasetyo Putri, M.Kom, Ph.D
