@@ -18,7 +18,7 @@ public class tambahSiswaEkstraPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    By inputNama = By.xpath("/html/body/div/div/main/div/div/form/div[1]/div/input");
+    By inputNama = By.xpath("//input[@placeholder='Masukkan NISN atau Nama Siswa']");
     By tombolTambah = By.xpath("/html/body/div/div/main/div/div/form/button[1]");
     By ekstra0 = By.id("ekstra-0");
     By selectEkstra = By.xpath("/html/body/div/div/main/div/div/form/div[2]/div/select");
