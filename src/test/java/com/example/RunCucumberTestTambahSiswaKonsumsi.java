@@ -6,9 +6,9 @@ import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/features",
+        features = "src/test/resources/features/konsumsi/tambah-siswa-konsumsi.feature",
         glue = {"com.example"},
         plugin = {"pretty", "html:target/cucumber-report.html"},
         monochrome = true
 )
-public class RunCucumberTest {}
+public class RunCucumberTestTambahSiswaKonsumsi {}

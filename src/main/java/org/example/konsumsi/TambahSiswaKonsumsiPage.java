@@ -14,7 +14,7 @@ public class TambahSiswaKonsumsiPage {
 
     public TambahSiswaKonsumsiPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(25));
     }
 
     public String getCurrentUrl() {

@@ -12,14 +12,8 @@ public class Hooks {
         this.context = context;
     }
 
-//    @Before
-//    public void setup() {
-//        context.getDriver();
-//    }
-
     @Before
     public void setup() {
-        // jangan pakai getDriver() kalau driver sudah ada
         if (context.getDriver() == null) {
             context.setDriver(new EdgeDriver());
         }

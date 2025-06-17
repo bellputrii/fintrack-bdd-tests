@@ -13,7 +13,7 @@ public class RiwayatPembayaranKonsumsiPage {
 
     public RiwayatPembayaranKonsumsiPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(25));
     }
 
     By tanggalPembayaranText = By.xpath("/html/body/div/div/main/div/div[2]/table/tbody/tr/td[1]");

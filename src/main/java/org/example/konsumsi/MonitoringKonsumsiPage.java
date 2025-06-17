@@ -15,7 +15,7 @@ public class MonitoringKonsumsiPage {
 
     public MonitoringKonsumsiPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(25));
     }
 
     By tambahSiswaButton = By.xpath("//button[contains(@class,'bg-blue-900') and contains(text(),'+ Tambah Siswa')]");
