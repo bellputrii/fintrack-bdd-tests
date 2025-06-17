@@ -67,6 +67,7 @@ Jika belum menerima undangan, silakan hubungi kami agar dapat dikirim ulang.
 ```bash
 git clone https://github.com/username/fintrack-bdd-tests.git
 cd fintrack-bdd-tests
+git checkout annisa
 ````
 
 ### 2. Install Dependency
