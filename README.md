@@ -1,5 +1,4 @@
 
-```markdown
 # 🧪 FINTRACK BDD Testing with Qase.io
 
 Repositori ini berisi implementasi pengujian **Behavior-Driven Development (BDD)** berbasis **Gherkin** untuk sistem manajemen keuangan **Fintrack**, dengan integrasi ke platform **Qase.io** sebagai alat manajemen pengujian.
@@ -25,6 +24,14 @@ Pengujian ini bertujuan untuk memastikan bahwa seluruh fitur utama dalam sistem 
 
 Semua pengujian dilakukan berdasarkan skenario Gherkin yang mendeskripsikan interaksi nyata pengguna terhadap sistem.
 
+## Fokus Branch: `annisa`
+
+> ⚠️ Harap perhatikan bahwa kode final pengujian berada pada branch `annisa`.  
+> Pastikan Anda melakukan clone ke branch ini:
+
+```bash
+git clone -b annisa https://github.com/bellputrii/fintrack-bdd-tests.git
+````
 ---
 
 ## 🔗 Link Qase Project
@@ -60,6 +67,7 @@ Jika belum menerima undangan, silakan hubungi kami agar dapat dikirim ulang.
 ```bash
 git clone https://github.com/username/fintrack-bdd-tests.git
 cd fintrack-bdd-tests
+git checkout annisa
 ````
 
 ### 2. Install Dependency
