@@ -24,6 +24,14 @@ Pengujian ini bertujuan untuk memastikan bahwa seluruh fitur utama dalam sistem 
 
 Semua pengujian dilakukan berdasarkan skenario Gherkin yang mendeskripsikan interaksi nyata pengguna terhadap sistem.
 
+## Fokus Branch: `annisa`
+
+> ⚠️ Harap perhatikan bahwa seluruh pengembangan dan pengujian dilakukan pada branch `annisa`.  
+> Pastikan Anda berpindah ke branch ini setelah melakukan clone:
+
+```bash
+git checkout annisa
+````
 ---
 
 ## 🔗 Link Qase Project
