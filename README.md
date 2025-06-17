@@ -1,5 +1,4 @@
 
-```markdown
 # 🧪 FINTRACK BDD Testing with Qase.io
 
 Repositori ini berisi implementasi pengujian **Behavior-Driven Development (BDD)** berbasis **Gherkin** untuk sistem manajemen keuangan **Fintrack**, dengan integrasi ke platform **Qase.io** sebagai alat manajemen pengujian.
