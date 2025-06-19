@@ -80,7 +80,7 @@ public class TambahSiswaEkstra {
         wait.until(ExpectedConditions.urlToBe("https://fe-fintrack.vercel.app/ekstra"));
         String currentUrl = driver.getCurrentUrl();
         System.out.println("[Monitoring Ekstra] URL saat ini: " + currentUrl);
-        Assertions.assertEquals("https://fe-fintrack.vercel.app/ekstra", currentUrl);
+        Assertions.assertEquals("https://fe-fintrack.vercel.app/ekstra?success=tambah", currentUrl);
     }
 
     @When("User menginputkan data ekstra siswa yang tidak valid")
