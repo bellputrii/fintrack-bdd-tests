@@ -7,11 +7,18 @@ import org.example.DashboardPage;
 import org.example.ekstra.monitoringEkstraPage;
 import org.example.ekstra.tambahSiswaEkstraPage;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class TambahSiswaEkstra {
     private final TestContext context;
     private WebDriver driver;
+    private WebDriverWait wait;
 
     DashboardPage dashboard;
     monitoringEkstraPage monitoringEkstra;
@@ -20,6 +27,7 @@ public class TambahSiswaEkstra {
     public TambahSiswaEkstra(TestContext context) {
         this.context = context;
         this.driver = context.getDriver();
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     @When("User klik tombol ekstrakurikuler")
@@ -53,33 +61,45 @@ public class TambahSiswaEkstra {
     @When("User menginputkan data ekstra siswa")
     public void isiFormulirData() {
         tambahSiswaEkstra = new tambahSiswaEkstraPage(driver);
-        tambahSiswaEkstra.isiNama("Ali");
+        tambahSiswaEkstra.isiNama("100011");
+        tambahSiswaEkstra.klikAutocompletePertama();
         tambahSiswaEkstra.klikTambah();
         tambahSiswaEkstra.klikEkstra0();
         tambahSiswaEkstra.pilihJenisEkstraKedua();
-        tambahSiswaEkstra.isiTanggalMulai("2025-07-01");
-        tambahSiswaEkstra.isiTanggalSelesai("2025-12-01");
+        tambahSiswaEkstra.isiTanggalMulai("10102024");
+        tambahSiswaEkstra.isiTanggalSelesai("12122025");
+
+        WebElement submitButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("submit-tambah-siswa-ekstra")));
+        submitButton.click();
+
+        System.out.println("[Ekstra] Klik tombol Simpan setelah isi data");
     }
 
     @Then("User diarahkan kembali ke halaman monitoring Ekstrakurikuler")
     public void verifikasiKembaliKeHalamanMonitoringEkstra() {
-        monitoringEkstra = new monitoringEkstraPage(driver);
-        monitoringEkstra.waitUntilLoaded();
-        String currentUrl = monitoringEkstra.getCurrentUrl();
+        wait.until(ExpectedConditions.urlToBe("https://fe-fintrack.vercel.app/ekstra"));
+        String currentUrl = driver.getCurrentUrl();
+        System.out.println("[Monitoring Ekstra] URL saat ini: " + currentUrl);
         Assertions.assertEquals("https://fe-fintrack.vercel.app/ekstra", currentUrl);
     }
 
-    @When("User tidak mengisi nama siswa dan menekan tombol tambah")
-    public void userTidakIsiNamaDanKlikTambah() {
-        tambahSiswaEkstra = new tambahSiswaEkstraPage(driver);
-        tambahSiswaEkstra.isiNama(""); // Kosongkan nama
+    @When("User menginputkan data ekstra siswa yang tidak valid")
+    public void isiDataEkstraTidakLengkap() {
+        tambahSiswaEkstra.isiNama("100011");
+        tambahSiswaEkstra.klikAutocompletePertama();
         tambahSiswaEkstra.klikTambah();
+        tambahSiswaEkstra.klikEkstra0();
+        tambahSiswaEkstra.pilihJenisEkstraKedua();
+        tambahSiswaEkstra.isiTanggalMulai("101020");
+        WebElement submitButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("submit-tambah-siswa-ekstra")));
+        submitButton.click();
+
+        System.out.println("[Ekstra] Klik tombol Simpan setelah isi data");
     }
 
-    @Then("sistem menampilkan pesan error {string}")
-    public void sistemMenampilkanPesanError(String expectedError) {
-        tambahSiswaEkstra = new tambahSiswaEkstraPage(driver);
-        Assertions.assertTrue(tambahSiswaEkstra.apakahAdaPesanError(), "Pesan error tidak muncul.");
-        Assertions.assertEquals(expectedError, tambahSiswaEkstra.getPesanError());
+    @Then("sistem menampilkan pesan kesalahan validasi")
+    public void tampilkanPesanValidasi() {
+        Assertions.assertTrue(tambahSiswaEkstra.apakahAdaPesanError(), "Validasi tidak muncul.");
+        System.out.println("Pesan validasi: " + tambahSiswaEkstra.getPesanError());
     }
 }

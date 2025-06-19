@@ -21,8 +21,8 @@ public class tambahSiswaEkstraPage {
     By inputNama = By.xpath("//input[@placeholder='Masukkan NISN atau Nama Siswa']");
     By tombolTambah = By.xpath("/html/body/div/div/main/div/div/form/button[1]");
     By ekstra0 = By.id("ekstra-0");
-    By selectEkstra = By.xpath("/html/body/div/div/main/div/div/form/div[2]/div/select");
-    By optionEkstraKedua = By.xpath("/html/body/div/div/main/div/div/form/div[2]/div/select/option[2]");
+    By selectEkstra = By.xpath("/html/body/div/div/main/div/div/form/div[3]/div/select");
+    By optionEkstraKedua = By.xpath("/html/body/div/div/main/div/div/form/div[3]/div/select/option[2]");
     By tanggalMulai = By.id("tanggalMulai");
     By tanggalSelesai = By.id("tanggalSelesai");
     By pesanError = By.xpath("/html/body/div/div/main/div/div/div/p");
@@ -44,10 +44,13 @@ public class tambahSiswaEkstraPage {
     }
 
     public void pilihJenisEkstraKedua() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(selectEkstra));
         WebElement dropdown = driver.findElement(selectEkstra);
         Select select = new Select(dropdown);
-        select.selectByIndex(1); // index 1 = option ke-2
+        select.selectByIndex(1); // option[2] = index 1
     }
+
+
 
     public void isiTanggalMulai(String tanggal) {
         WebElement inputTanggal = driver.findElement(tanggalMulai);
@@ -84,5 +87,10 @@ public class tambahSiswaEkstraPage {
         } catch (Exception e) {
             return "";
         }
+    }
+    public void klikAutocompletePertama() {
+        By autocompletePertama = By.xpath("/html/body/div/div/main/div/div/form/div[1]/div/div/div");
+        wait.until(ExpectedConditions.elementToBeClickable(autocompletePertama));
+        driver.findElement(autocompletePertama).click();
     }
 }

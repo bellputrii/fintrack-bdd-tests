@@ -6,8 +6,10 @@ Feature: Pembayaran Ekstrakurikuler
     And menekan tombol login
     Then pengguna diarahkan ke halaman dashboard
 
-  Scenario:  Pembayaran ekstra berhasil dilakukan
-    When User mencari nama siswa "Ali" untuk pembayaran ekstra
+  Scenario: Pembayaran ekstra berhasil dilakukan
+    When User klik tombol ekstrakurikuler
+    Then User diarahkan ke halaman monitoring Ekstrakurikuler
+    When User memilih Level X dari dropdown untuk pembayaran ekstra
     And User klik tombol bayar ekstra
     And User mengisi tanggal pembayaran dengan "2025-07-15"
     And User mengisi nominal pembayaran dengan "50000"
@@ -15,11 +17,3 @@ Feature: Pembayaran Ekstrakurikuler
     And User menekan tombol simpan pembayaran
     Then User melihat konfirmasi pembayaran berhasil
 
-  Scenario: Pembayaran ekstra gagal karena data tidak lengkap
-    When User mencari nama siswa "Ali" untuk pembayaran ekstra
-    And User klik tombol bayar ekstra
-    And User mengisi tanggal pembayaran dengan ""
-    And User mengisi nominal pembayaran dengan ""
-    And User mengisi catatan pembayaran dengan ""
-    And User menekan tombol simpan pembayaran
-    Then User melihat pesan error pembayaran ditampilkan

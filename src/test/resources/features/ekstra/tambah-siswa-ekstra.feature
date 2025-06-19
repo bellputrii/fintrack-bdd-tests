@@ -20,5 +20,5 @@ Feature: Fitur Ekstrakurikuler
     Then User diarahkan ke halaman monitoring Ekstrakurikuler
     When User klik tombol tambah siswa
     Then User diarahkan ke halaman tambah siswa ekstrakurikuler
-    When User menginputkan data ekstra siswa yang tidak lengkap
+    When User menginputkan data ekstra siswa yang tidak valid
     Then sistem menampilkan pesan kesalahan validasi
